@@ -10,18 +10,25 @@ async function obtenerRespuesta(mensaje) {
             params: { q: mensaje }
         });
 
-        // Imprimir la respuesta completa para depuración
-        console.log(response.data);  // Esto mostrará todo el objeto de respuesta de Wit.ai
+        console.log(response.data); // Depuración
 
-        // Detectar la intención
-        const intent = response.data.intents && response.data.intents[0];
-        
-        // Verificar si la intención es 'Preguntas_de_matricula'
-        if (intent && intent.name === 'Preguntas_de_matricula') {
-            // Detectar la entidad de matricula
-            const entidadMatricula = response.data.entities && response.data.entities['matricula:matricula'];
-            if (entidadMatricula && entidadMatricula.length > 0) {
-                return "Para matricularte, primero debes ingresar al portal de matrículas, llenar el formulario y subir los documentos requeridos.";
+        // Verificar los intents detectados
+        const intents = response.data.intents;
+
+        if (intents.length > 0) {
+            const intent = intents[0].name;
+
+            switch (intent) {
+                case 'Concepto_Prematricula':
+                    return "La prematrícula es el proceso en el que seleccionas cursos antes de la matrícula oficial.";
+                case 'Proceso_Prematricula':
+                    return "Para realizar la prematrícula, ingresa al sistema, elige tus cursos y confirma.";
+                case 'Concepto_Matricula':
+                    return "La matrícula es el proceso oficial donde inscribes los cursos para el semestre.";
+                case 'Proceso_Matricula':
+                    return "Para matricularte, entra al sistema en las fechas oficiales y selecciona los cursos.";
+                default:
+                    return "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?";
             }
         }
 
@@ -32,7 +39,6 @@ async function obtenerRespuesta(mensaje) {
     }
 }
 
-// Test del bot
-obtenerRespuesta('¿Cómo puedo hacer la matricula?').then(respuesta => {
-    console.log(respuesta);  // Debería mostrar la respuesta correspondiente a la matrícula
-});
+// Test
+obtenerRespuesta('Que es la prematricula').then(console.log);
+obtenerRespuesta('¿Como hago la matrícula?').then(console.log);
