@@ -1,0 +1,15 @@
+{
+  "name": "projectbot_repository",
+  "version": "1.0.0",
+  "description": "Repositorio del projecto de \"Sistemas Expertos\"",
+  "main": "responses chatbot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9"
+  }
+}
