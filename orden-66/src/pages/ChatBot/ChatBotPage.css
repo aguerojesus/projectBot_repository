@@ -21,7 +21,6 @@ html {
 .chatbot {
   display: flex;
   align-items: flex-start;
-  white-space: nowrap
 }
 
 .floatButtons {
