@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ChatBot from './pages/ChatBot'
+import HomePage from './pages/Home/HomePage'
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
         <div className='app'>
           <div className="content">
             <Routes>
-              <Route path="/" element={<ChatBot />} />
+              <Route path="/" element={<HomePage />} />
             </Routes>
           </div>
         </div>

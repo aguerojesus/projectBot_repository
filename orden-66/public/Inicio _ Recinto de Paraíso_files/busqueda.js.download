@@ -1,0 +1,25 @@
+jQuery( document ).ready(function() {
+    jQuery(".close").click(function () {
+      jQuery("#searchbar").slideToggle(300, function(){
+      });
+    });
+});
+
+jQuery(function(){
+  var $searchbar  = jQuery('#searchbar');
+  
+  jQuery('.search a').on('click', function(e){
+    e.preventDefault();
+    
+    if(jQuery(this).attr('id') == 'searchtoggl') {
+      $searchbar.slideToggle(300, function(){
+      });
+    }
+  });
+  
+  jQuery('#searchform').submit(function(e){
+    e.preventDefault(); // stop form submission
+  });
+
+  jQuery("#edit-keys").attr("placeholder", "Escriba una palabra o frase...");
+});
