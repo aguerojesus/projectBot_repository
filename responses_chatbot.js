@@ -1,38 +1,14 @@
-const axios = require('axios');
+const respuestas = {
+    Concepto_Prematricula: "La prematrícula es el proceso en el que seleccionas cursos antes de la matrícula oficial.",
+    Proceso_Prematricula: "Para realizar la prematrícula, ingresa al sistema, elige tus cursos y confirma.",
+    Concepto_Matricula: "La matrícula es el proceso oficial donde inscribes los cursos para el semestre.",
+    Proceso_Matricula: "Para matricularte, entra al sistema en las fechas oficiales y selecciona los cursos.",
+    por_defecto: "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
+};
 
-const accessToken = 'NOLZ5DZZ5Q7STTIQV6536YAZ7OHRYVU7';
-
-async function obtenerRespuesta(mensaje) {
-    const url = 'https://api.wit.ai/message';
-    try {
-        const response = await axios.get(url, {
-            headers: { 'Authorization': `Bearer ${accessToken}` },
-            params: { q: mensaje }
-        });
-
-        // Imprimir la respuesta completa para depuración
-        console.log(response.data);  // Esto mostrará todo el objeto de respuesta de Wit.ai
-
-        // Detectar la intención
-        const intent = response.data.intents && response.data.intents[0];
-        
-        // Verificar si la intención es 'Preguntas_de_matricula'
-        if (intent && intent.name === 'Preguntas_de_matricula') {
-            // Detectar la entidad de matricula
-            const entidadMatricula = response.data.entities && response.data.entities['matricula:matricula'];
-            if (entidadMatricula && entidadMatricula.length > 0) {
-                return "Para matricularte, primero debes ingresar al portal de matrículas, llenar el formulario y subir los documentos requeridos.";
-            }
-        }
-
-        return "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?";
-    } catch (error) {
-        console.error('Error al procesar la solicitud:', error);
-        return "Hubo un error al procesar tu solicitud.";
-    }
+// Función para obtener una respuesta según la intención detectada
+function obtenerRespuesta(intent) {
+    return respuestas[intent] || respuestas["por_defecto"];
 }
 
-// Test del bot
-obtenerRespuesta('¿Cómo puedo hacer la matricula?').then(respuesta => {
-    console.log(respuesta);  // Debería mostrar la respuesta correspondiente a la matrícula
-});
+module.exports = { obtenerRespuesta };
