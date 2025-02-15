@@ -1,14 +1,15 @@
 const messaggeServices = ({text}:{text:string}) => {
-    var url = 'http://localhost:3000/mensaje';
 
-    fetch(url, {
+    fetch("http://localhost:3000/mensaje", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ texto: text}),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ "texto" : "Que es prematricula" })
     })
-        .then((res) => res.json())
-        .then((data) => console.log("Respuesta:", data.respuesta))
-        .catch((error) => console.error("Error:", error));
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error jesus:", error));
 }
 
 export default messaggeServices;
