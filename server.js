@@ -1,9 +1,18 @@
 const express = require("express");
 const { obtenerIntencion } = require("./wit");
 const { obtenerRespuesta } = require("./responses_chatbot");
+const cors = require("cors");
 
 const app = express();
-app.use(express.json());
+
+// Habilitar CORS con los headers correctos
+app.use(cors({
+    origin: "http://localhost:5173", 
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: ["Content-Type"]
+}));
+
+app.use(express.json()); // Para manejar JSON en las peticiones
 
 // Ruta para procesar mensajes desde el frontend
 app.post("/mensaje", async (req, res) => {
@@ -24,8 +33,20 @@ app.post("/mensaje", async (req, res) => {
     }
 });
 
+
+
+
+
+
+
+
+// Ruta de prueba
+app.post("/mensaje", (req, res) => {
+    res.json({ mensaje: "Mensaje recibido correctamente" });
+});
+
 // Iniciar el servidor
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
