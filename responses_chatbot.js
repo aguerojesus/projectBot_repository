@@ -17,7 +17,7 @@ const respuestas = {
     Requisito_Curso: "Algunos cursos requieren que hayas aprobado asignaturas previas o que cumplas con un nivel académico específico dentro de la carrera. Revisa el plan de estudios de tu carrera para conocer los requisitos de cada curso.",
     Requisito_Horas: "Algunos programas de horas requieren que completes un número mínimo de horas en actividades como trabajo comunitario, investigación o servicio social. Revisa los requisitos específicos del programa al que aplicas.",
     
-    //Agregar a wit:
+    //FALTAN DE Agregar a wit:
     Categoria_Horas: "Existen 3 tipos de horas distintos: horas estudiante, horas asistente y horas asistente de posgrado",
     //Revisar esto antes de meterlo a wit, ver como manejarlo:
     Concepto_HorasEstudiante: "Las horas estudiante tienen carácter de colaboración y demandarán habilidades y conocimientos básicos para llevarlas a cabo. Para su ejecución, se requerirá la supervisión del personal universitario.",
@@ -30,9 +30,24 @@ const respuestas = {
     Concepto_MallaCurricular:"Es el conjunto de asignaturas que un estudiante debe tomar para obtener su título universitario, estas suelen estar divididas en 'ramas' que indican el orden de los cursos a seguir por áreas de conocimiento.",
     Concepto_CorteIngreso: "Es el puntaje mínimo requerido para ser admitido en esa carrera, sin embargo, no es un número fijo. Este corte de ingreso suele ser la nota de admisión de la última persona que fue seleccionada para ingresar en esa carrera, por lo que los cortes cambian año a año. I m p o r t a n t e: Algunas carreras tienen requisitos especiales como pruebas específicas o de habilidades se RECOMIENDA consultar las normas y procedimientos de ingreso a carrera, correspondiente al año de concurso. Puedes consultar los cortes de carrera en la siguiente dirección: <a href='https://consultasic.ucr.ac.cr/cortespi/' target='_blank'>Cortes UCR</a>.",
     Concepto_PAA: "La Prueba de Aptitud Académica mide habilidades generales de razonamiento mediante ítems que evalúan el nivel de razonamiento de la persona aspirante, combinando conocimientos básicos de los primeros años de secundaria con estrategias como suponer, presuponer, parafrasear, oponer, deducir, reducir, generalizar, verificar, indagar y representar información. La Prueba del 2024 en total posee 50 ítems. Todos son de selección única con 4 opciones de respuesta, de las cuales solo una es correcta. Puedes practicar en línea en el siguiente enlace: <a href='https://www.paa.iip.ucr.ac.cr/practicaenlinea/' target='_blank'>Práctica en Línea PAA</a>.",
-   
+    Contacto_RecintoParaiso:"Teléfono:  2511-7550, Correo:secretaria.rp@ucr.ac.cr",
+    Ubicación_RecintoParaiso:"Paraíso de Cartago. Del parque de Paraíso, un kilómetro y medio sobre carretera a Orosi", 
+    Concepto_Correquisito:"Un curso correquisto son cursos que se deben matricular al mismo tiempo que otro curso.",
+    Concepto_RetiroCurso:"Cuando el estudiante decide no llevar un curso previamente matriculado. El retiro no exime de las obligaciones financieras correspondientes, queda RM registrado en el expediente pero no afecta el promedio.",
+    Proceso_RetiroCurso:"Ingresar al sitio web de ematrícula y seleccionar el curso a renunciar en el periodo correspondiente",
+    Concepto_RenunciaCurso:"Cuando el estudiante decide no llevar un curso que matriculó en el periodo de matrícula ordinaria. Este proceso a diferencia del retiro de cursos no tiene implicaciones presupuestarias y no queda registrado en el expediente académico.",
+    Proceso_RenunciaCurso:"No poseer morosidades con la universidad Procedimiento: Ingresar al sitio web de ematrícula y seleccionar el curso a renunciar en el periodo de tiempo estipulado para esto.",
+    Servicio_AtenciónPsicologica:"La UCR ofrece atención psicológica gratuita a sus estudiantes a través de la Oficina de Bienestar y Salud. Este servicio brinda apoyo emocional, terapias individuales y talleres sobre salud mental. Puedes solicitar una cita enviando un correo a : PSICOLOGIA.RP@ucr.ac.cr",
+    Servicio_ConsejeriaEstudiantil:"Es un servicio de orientación que ayuda a los estudiantes con problemas académicos, vocacionales y personales. Se ofrece en las distintas facultades y en la Oficina de Orientación.",
+    Servicio_Biblioteca:"La UCR cuenta con múltiples bibliotecas en sus diferentes recintos y sedes proporcionando acceso a libros, revistas científicas, equipo audiovisual, bases de datos digitales y espacios de estudio.",
+    Proceso_PrestamoLibros:"Los estudiantes pueden consultar libros a través del catálogo en línea del Sistema de Bibliotecas, Documentación e Información (SIBDI). Si el libro está disponible en la biblioteca, solo deben acercarse y consultar por el número de signatura de este. ",
+    Proceso_PrestamoAudiovisuales:"Los materiales audiovisuales pueden ser prestados a través de las bibliotecas que cuentan con este servicio. Se debe presentar la identificación estudiantil y respetar el tiempo máximo de préstamo.",
+    Proceso_ConfiguracionWifi:"Para conectarse al WiFi de la UCR, los estudiantes deben ingresar a la red “eduroam” con su correo institucional (@ucr.ac.cr) y contraseña. También pueden acceder mediante la configuración manual disponible en la página del Centro de Informática.",
+    Horario_Biblioteca:"En el recinto de paraíso, la biblioteca está abierta en un horario de 8:00 am a 12:00 md y de 1:00 pm a 5:00 pm",
+    //Horario_ 
 
-    Contacto_RecintoParaíso:"Teléfono:  2511-7550, Correo:secretaria.rp@ucr.ac.cr",
+
+
     por_defecto: "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
 };
 
