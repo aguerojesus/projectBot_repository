@@ -1,20 +1,17 @@
 :root {
   --msger-bg: #fff;
   --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;
-  --right-msg-bg: #579ffb;
+  --left-msg-bg: #ddd;
+  --right-msg-bg: #41ADE7;
 }
 
 .chatbot {
   position: fixed;
-  top: 55%;
   right: 5%;
+  bottom: 10%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 9999;
 }
-
 
 .buttonContainer {
   position: sticky;
@@ -32,11 +29,22 @@
 
 .msger-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
   padding: 10px;
   border-bottom: var(--border);
   background: #eee;
   color: #666;
+}
+
+.msger-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.msger-header-title span {
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .msger-chat {
@@ -73,12 +81,19 @@
   border-radius: 15px;
   background: var(--left-msg-bg);
   word-wrap: break-word;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.msg-text {
+  text-align: left;
 }
 
 .msg-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 0 10px 0;
 }
 
 .msg-info-name {
@@ -126,23 +141,26 @@
 .msger-input {
   flex: 1;
   background: #ddd;
+  border-radius: 10px;
 }
 
 .msger-send-btn {
   margin-left: 10px;
-  background: rgb(11, 167, 214);
+  background: #41ADE7;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.23s;
+  border-radius: 10px;
 }
 
 .msger-send-btn:hover {
-  background: rgb(143, 248, 255);
+  background: #204C6F;
 }
 
 .msger-chat {
   background-color: #fcfcfe;
-  background-image: url("https://miro.medium.com/v2/resize:fit:5400/1*Os3qestslSerRQVSqF7FwQ.png");
-  background-size: contain;
+  background-image: url("https://images3.alphacoders.com/609/thumb-1920-609744.png");
+  background-size: 100%;
+  background-position: center;
 }

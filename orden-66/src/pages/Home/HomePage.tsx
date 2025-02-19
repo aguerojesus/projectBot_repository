@@ -6,6 +6,7 @@ import ChatBotComponent from "../../Components/ChatBot/ChatBotPage";
 const HomePage = () => {
     const [htmlContent, setHtmlContent] = useState<string>('')
     const [isChatBotVisible, setIsChatBotVisible] = useState<boolean>(false);
+    const [isHiding, setIsHiding] = useState<boolean>(false);
 
     useEffect(() => {
         fetch('/Pagina.html')
@@ -13,15 +14,33 @@ const HomePage = () => {
             .then(data => setHtmlContent(data))
     }, [])
 
+    const toggleChatBot = () => {
+        if (isChatBotVisible) {
+            setIsHiding(true); // Comienza la animación de cierre
+            setTimeout(() => {
+                setIsChatBotVisible(false);
+                setIsHiding(false); // Reseteamos el estado de ocultar para la próxima vez
+            }, 500); // Este tiempo debe coincidir con la duración de la animación
+        } else {
+            setIsChatBotVisible(true);
+        }
+    };
+
     return (
         <>
-            <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+            <iframe
+                src="/Pagina.html"
+                style={{ width: '100%', height: '100vh', border: 'none' }}
+                title="Pagina HTML"
+            />
             <FloatButtonComponent
                 text="ChatBot"
-                iconPath="M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z"
-                onClick={() => setIsChatBotVisible(!isChatBotVisible)} 
+                iconPath="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c0 0 0 0 0 0s0 0 0 0s0 0 0 0c0 0 0 0 0 0l.3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z"
+                onClick={toggleChatBot}
             />
-            {isChatBotVisible && <ChatBotComponent />}
+            {isChatBotVisible && (
+                <ChatBotComponent isHiding={isHiding} />
+            )}
         </>
     );
 }

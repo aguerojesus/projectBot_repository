@@ -7,14 +7,14 @@
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    position: fixed; /* Cambio de absolute a fixed */
-    right: 20px; /* Lo fija al borde derecho */
-    top: 95%; /* Lo posiciona en el centro vertical */
-    transform: translateY(-50%); /* Lo centra exactamente */
+    position: fixed;
+    right: 35px;
+    top: 95%;
+    transform: translateY(-50%);
     overflow: hidden;
     transition-duration: .3s;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: rgb(45, 206, 30);
+    background-color:  #41ADE7;
 }
 
 
@@ -33,6 +33,7 @@
 
 .sign svg path {
     fill: white;
+    z-index: 9999;
 }
 
 /* text */
