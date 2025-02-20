@@ -45,7 +45,7 @@ const respuestas = {
     Proceso_ConfiguracionWifi:"Para conectarse al WiFi de la UCR, los estudiantes deben ingresar a la red “eduroam” con su correo institucional (@ucr.ac.cr) y contraseña. También pueden acceder mediante la configuración manual disponible en la página del Centro de Informática.",
     Horario_Biblioteca:"En el recinto de paraíso, la biblioteca está abierta en un horario de 8:00 am a 12:00 md y de 1:00 pm a 5:00 pm",
     //Horario_ 
-
+    //Servicios vida estudiantil
 
 
     por_defecto: "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
