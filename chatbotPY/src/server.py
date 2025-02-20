@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from wit import obtener_intencion
-from responses_chatbot import get_respuesta
+from responses_chatbot import obtener_respuesta
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})  # Habilitar CORS
@@ -22,7 +22,7 @@ def procesar_mensaje():
     
     try:
         intent = obtener_intencion(texto)  # Detectar intención con Wit.ai
-        mensaje_respuesta = get_respuesta(intent)  # Obtener respuesta según la intención
+        mensaje_respuesta = obtener_respuesta(intent)  # Obtener respuesta según la intención
         return jsonify({"respuesta": mensaje_respuesta})
     except Exception as e:
         print("Error:", e)
