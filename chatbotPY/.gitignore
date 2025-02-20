@@ -1,0 +1,23 @@
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dependencias innecesarias
+*.egg-info/
+dist/
+build/
+
+# Configuraciones de editores
+.vscode/
+.idea/
+
+# Archivos de logs y temporales
+*.log
+*.sqlite3
+
+# Variables de entorno y credenciales
+.env
+config.json
+secrets.json
