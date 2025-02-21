@@ -46,7 +46,7 @@ respuestas = {
     "Proceso_ConfiguracionWifi": "Para conectarse al WiFi de la UCR, los estudiantes deben ingresar a la red “eduroam” con su correo institucional (@ucr.ac.cr) y contraseña. También pueden acceder mediante la configuración manual disponible en la página del Centro de Informática.",
     
     
-    "Nota de ingreso":"" #Cuidado con nota corte o nota adimisión
+    "Nota de ingreso":"", #Cuidado con nota corte o nota adimisión
     
     "por_defecto": "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
     
