@@ -1,5 +1,5 @@
 export interface UserTypes {
-    sender: "User" | "Bot",
+    sender: string,
     message: string,
     formattedTime: string
 }
