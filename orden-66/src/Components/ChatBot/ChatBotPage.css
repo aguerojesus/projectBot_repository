@@ -8,7 +8,7 @@
 .chatbot {
   position: fixed;
   right: 5%;
-  bottom: 10%;
+  bottom: 8%;
   display: flex;
   z-index: 9999;
 }
@@ -49,9 +49,11 @@
 
 .msger-chat {
   padding: 10px;
-  height: 200px;
+  height: 70vh;
+  width: 30vw;
   overflow: auto;
   scrollbar-width: none;
+  min-width: 350px;
 }
 
 .msg {
@@ -75,8 +77,8 @@
   border-radius: 50%;
 }
 
-.msg-bubble {
-  max-width: 200px;
+.msg-bubble { /*Revizar*/
+  max-width: 83%;
   padding: 15px;
   border-radius: 15px;
   background: var(--left-msg-bg);
@@ -163,4 +165,10 @@
   background-image: url("https://images3.alphacoders.com/609/thumb-1920-609744.png");
   background-size: 100%;
   background-position: center;
+}
+
+@media (max-width: 1500px) {
+  .msg-bubble {
+    max-width: 70%;
+  }
 }

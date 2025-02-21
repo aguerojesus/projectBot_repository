@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./ChatBotPage.css";
 import IconChat from "./icon.tsx";
+import messageServices from "../../services/messageServices.tsx";
+import type { UserTypes } from "./userTypes.ts";
+
 const MessageChat = ({ message, formattedTime }: { message: string, formattedTime: string }) => {
     return (
         <>
@@ -14,9 +17,7 @@ const MessageChat = ({ message, formattedTime }: { message: string, formattedTim
                         <div className="msg-info-name">Orden-66</div>
                         <div className="msg-info-time">{formattedTime}</div>
                     </div>
-                    <div className="msg-text">
-                        {message}
-                    </div>
+                    <div className="msg-text" dangerouslySetInnerHTML={{ __html: message }} />
                 </div>
             </div>
         </>
@@ -46,12 +47,6 @@ const MessageUser = ({ message, formattedTime }: { message: string, formattedTim
 }
 
 const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const chatRef = useRef<HTMLDivElement>(null);
-
-    const [historyUser, setHistoryUser] = useState<string[]>([]);
-    const [historyBot, setHistoryBot] = useState<string[]>(["Hola, yo soy la ia de la ucr", "¿En qué puedo ayudarte?"]);
-
     const now = new Date();
     const formattedTime = now.toLocaleTimeString("es-ES", {
         hour: "2-digit",
@@ -59,21 +54,46 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         hour12: false, // Cambia a true si quieres formato 12h
     });
 
-    const handleSendMessage = () => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const chatRef = useRef<HTMLDivElement>(null);
+
+    const [historyChat, setHistoryChat] = useState<UserTypes[]>(() => {
+        const savedHistory = localStorage.getItem('historyChat');
+        return savedHistory ? JSON.parse(savedHistory) : [{
+            sender: 'Bot',
+            message: "¡Hola! ¿En qué puedo ayudarte?",
+            formattedTime: formattedTime
+        }];
+    });
+
+    const handleSendMessage = async () => {
         if (inputRef.current) {
-            const message = inputRef.current.value;
-            if (message.trim() !== "") {
-                setHistoryUser(prevHistory => [...prevHistory, message]);
+            const message = inputRef.current.value.trim();
+            if (message !== "") {
+                setHistoryChat(prevHistory => [...prevHistory, { sender: 'User', message: message, formattedTime: formattedTime }]);
                 inputRef.current.value = "";
+
+                try {
+                    const response = await messageServices({ text: message });
+                    if (response && response.respuesta) {
+                        setHistoryChat(prevHistory => [...prevHistory, { sender: 'Bot', message: response.respuesta, formattedTime: formattedTime }]);
+                    } else {
+                        setHistoryChat(prevHistory => [...prevHistory, { sender: 'Bot', message: "Error al obtener respuesta", formattedTime: formattedTime }]);
+                    }
+                } catch (error) {
+                    console.error("Error al enviar mensaje:", error);
+                    setHistoryChat(prevHistory => [...prevHistory, { sender: 'Bot', message: "No se pudo conectar con el servidor", formattedTime: formattedTime }]);
+                }
             }
         }
     };
 
     useEffect(() => {
+        localStorage.setItem('historyChat', JSON.stringify(historyChat));
         if (chatRef.current) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
-    }, [historyUser, historyBot]);
+    }, [historyChat]);
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -81,7 +101,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
             handleSendMessage();
         }
     };
-    
+
     return (
         <div className={`chatbot animate__animated ${isHiding ? "animate__slideOutDown" : "animate__slideInUp"}`}>
             <section className="msger">
@@ -93,16 +113,15 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
                 </header>
 
                 <main className="msger-chat" ref={chatRef}>
-                    {historyBot.map((message, index) => (
-                        <MessageChat key={index} message={message} formattedTime={formattedTime} />
-                    ))}
-                    {historyUser.map((message, index) => (
-                        <MessageUser key={index} message={message} formattedTime={formattedTime} />
+                    {historyChat.map((user, index) => (
+                        user.sender === "User" ?
+                            <MessageUser key={index} message={user.message} formattedTime={user.formattedTime} /> :
+                            <MessageChat key={index} message={user.message} formattedTime={user.formattedTime} />
                     ))}
                 </main>
 
                 <form className="msger-inputarea">
-                    <input type="text" className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress}/>
+                    <input type="text" className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress} />
                     <label className="msger-send-btn" onClick={handleSendMessage}>Send</label>
                 </form>
             </section>

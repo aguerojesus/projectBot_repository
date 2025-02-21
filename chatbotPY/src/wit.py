@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ACCESS_TOKEN = os.getenv("3OFSKDB7UT4UHSVLKK562I4U3PFML47T")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
 # Función para enviar un mensaje a Wit.ai y obtener la intención
 def obtener_intencion(mensaje):
@@ -16,15 +16,16 @@ def obtener_intencion(mensaje):
                                 params={"q": mensaje})
         
         response_data = response.json()
-        print("Respuesta de Wit.ai:", response_data)  # Depuración
+        print("Respuesta de Wit.ai:", response_data)  # Depuración completa
         
         # Verificar si hay intenciones detectadas
         intents = response_data.get("intents", [])
-        
         if intents:
-            return intents[0]["name"]  # Retorna el nombre de la intención más relevante
+            print(f"Intención detectada: {intents[0]['name']}")  # Imprimir la intención detectada
+            return intents[0]["name"]  # Retorna la intención
         
         return "por_defecto"  # Si no detecta intención, usa la respuesta por defecto
     except Exception as e:
         print("Error al conectar con Wit.ai:", e)
         return "por_defecto"
+
