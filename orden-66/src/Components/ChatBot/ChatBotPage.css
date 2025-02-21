@@ -77,7 +77,8 @@
   border-radius: 50%;
 }
 
-.msg-bubble { /*Revizar*/
+.msg-bubble {
+  /*Revizar*/
   max-width: 83%;
   padding: 15px;
   border-radius: 15px;
@@ -98,10 +99,17 @@
   margin: 0 0 10px 0;
 }
 
+.msg-options {
+  display: flex;
+  flex-direction: row-reverse;
+  cursor: pointer;
+  margin: 5px -5px -5px 0;
+}
+
 .msg-info-name {
   margin-right: 10px;
   font-weight: bold;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .msg-info-time {
@@ -165,6 +173,14 @@
   background-image: url("https://images3.alphacoders.com/609/thumb-1920-609744.png");
   background-size: 100%;
   background-position: center;
+}
+
+.microphone {
+  padding: 0;
+  position: absolute;
+  right: 80px;
+  bottom: 11px;
+  cursor: pointer;
 }
 
 @media (max-width: 1500px) {
