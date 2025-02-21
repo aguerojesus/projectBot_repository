@@ -14,7 +14,7 @@ const MessageChat = ({ message, formattedTime }: { message: string, formattedTim
                 ></div>
                 <div className="msg-bubble">
                     <div className="msg-info">
-                        <div className="msg-info-name">Orden-66</div>
+                        <div className="msg-info-name">Asistente R2-D2</div>
                         <div className="msg-info-time">{formattedTime}</div>
                     </div>
                     <div className="msg-text" dangerouslySetInnerHTML={{ __html: message }} />
@@ -47,6 +47,15 @@ const MessageUser = ({ message, formattedTime }: { message: string, formattedTim
 }
 
 const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
+<<<<<<< HEAD
+=======
+    const inputRef = useRef<HTMLInputElement>(null);
+    const chatRef = useRef<HTMLDivElement>(null);
+
+    const [historyUser, setHistoryUser] = useState<string[]>([]);
+    const [historyBot, setHistoryBot] = useState<string[]>(["Hola, soy R2-D2, el asistente virtual del recinto de la UCR.", "¿En qué puedo ayudarte?"]);
+
+>>>>>>> aa5ba984f310db1d988d1770eaa44e11ee6a1bdf
     const now = new Date();
     const formattedTime = now.toLocaleTimeString("es-ES", {
         hour: "2-digit",
@@ -108,7 +117,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
                 <header className="msger-header">
                     <div className="msger-header-title">
                         {<IconChat />}
-                        <span>ChatBot</span>
+                        <span>Chatbot y Asistente UCR</span>
                     </div>
                 </header>
 
