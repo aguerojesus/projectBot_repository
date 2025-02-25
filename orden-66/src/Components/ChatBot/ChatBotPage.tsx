@@ -11,7 +11,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
     const [botName] = useState<string>("Asistente R2-D2");
     const [hear, setHear] = useState<boolean>(false); // Activa el micrófono
     /* si van 3 veces que no entiende, se le pregunte al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión */
-    const [numTimesNotUnderstood, setNumTimesNotUnderstood] = useState<number>(3); 
+    const [numTimesNotUnderstood, setNumTimesNotUnderstood] = useState<number>(3);
     const [formattedTime] = useState<string>(`${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`); //
     const [count, setCount] = useState<number>(0); // Contador para desactivar el chat despues de 3 mensajes
     const [talk, setTalk] = useState<boolean>(false); // El chat hablara siempre que haya un mensaje nuevo
@@ -29,6 +29,10 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
             formattedTime: formattedTime
         }];
     });
+
+    const getMessageForType = (type: string) => {
+        return messageChat.find(x => x.type === type)?.message ?? "none";
+    }
 
     useEffect(() => { // Desactiva el chat despues de 3 mensajes y envia un mensaje de despedida
         if (count < 3) {
@@ -52,9 +56,31 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         }
     }, [historyChat]);
 
-    useEffect(() => {
-        
-    }, [count]);
+    useEffect(() => { // si el chatbot contesta 3 veces que no entiende, se le pregunta al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión
+        var lastMessage = historyChat[historyChat.length - 1];
+        console.log("lastMessage", lastMessage);
+
+        if (lastMessage.sender === botName && lastMessage.message === getMessageForType('default')) {
+            if (numTimesNotUnderstood === 0) {
+                setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType('fallback'), formattedTime: formattedTime }]);
+                console.log("Se envio un mensaje de fallback");
+            }
+            
+            if (numTimesNotUnderstood >= 1) {
+                console.log("No entendió el mensaje");
+            }
+            setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
+        }
+
+        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('si')) {
+            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[4].message, formattedTime: formattedTime }]);
+            console.log("El usuario dijo que si");
+        }
+        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('no')) {
+            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[5].message, formattedTime: formattedTime }]);
+            console.log("El usuario dijo que no");
+        }
+    }, [historyChat]);
 
     const handleSendMessage = async () => {
         if (inputRef.current) {

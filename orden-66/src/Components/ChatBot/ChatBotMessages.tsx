@@ -1,6 +1,6 @@
 import { ChatBotMessagesTypes } from "../../types/ChatBotMessagesTypes";
 
-export const ChatBotMessages : ChatBotMessagesTypes[] = [
+export const ChatBotMessages: ChatBotMessagesTypes[] = [
     {
         type: 'welcome',
         message: `
@@ -28,5 +28,17 @@ export const ChatBotMessages : ChatBotMessagesTypes[] = [
     {
         type: 'default',
         message: "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
+    },
+    {
+        type: 'si',
+        message: '¡Genial! ¿En qué más puedo ayudarte?'
+    },
+    {
+        type: 'no',
+        message: "¡Entendido! Hasta luego."
+    },
+    {
+        type: 'fallback',
+        message: "Parece que no estoy entendiendo. ¿Quieres que te ayude con otra cosa?"
     }
 ];
