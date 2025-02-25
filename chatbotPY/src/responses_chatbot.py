@@ -13,21 +13,10 @@ try:
         contacts = data.get("contacts", [])
 except (FileNotFoundError, json.JSONDecodeError):
     contacts = []
-    
-intentos_fallidos = 0
-def obtener_respuesta(intent):
-    global intentos_fallidos
 
+def obtener_respuesta(intent):
     if not intent or not isinstance(intent, str):
-        intentos_fallidos += 1
-        # Si se han fallado 3 veces, preguntar si necesita más ayuda
-        if intentos_fallidos >= 3:
-            intentos_fallidos = 0  # Resetear el contador
-            return "¿Puedo ayudarte con algo más? Si no, puedo cerrar sesión."
         return answers.get("por_defecto", "Lo siento, no tengo una respuesta para eso.")
-    
-    # Resetear el contador si hay una intención válida
-    intentos_fallidos = 0
     return answers.get(intent, answers.get("por_defecto", "Lo siento, no tengo una respuesta para eso."))
 
 def obtener_contactos_por_criterio(criterio):
