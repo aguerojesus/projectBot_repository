@@ -31,23 +31,61 @@ respuestas = {
     "Concepto_RenunciaCurso": "Cuando el estudiante decide no llevar un curso que matriculó en el periodo de matrícula ordinaria. Este proceso a diferencia del retiro de cursos no tiene implicaciones presupuestarias y no queda registrado en el expediente académico.",
     "Proceso_RenunciaCurso": "No poseer morosidades con la universidad Procedimiento: Ingresar al sitio web de ematrícula y seleccionar el curso a renunciar en el periodo de tiempo estipulado para esto.",
     "Horario_Biblioteca": "En el recinto de paraíso, la biblioteca está abierta en un horario de 8:00 am a 12:00 md y de 1:00 pm a 5:00 pm",
-
-    
-    #FALTA METER A WIT:
-    "Actividades_HorasEstudiante": "Preparar materiales que sirvan de apoyo en las diferentes actividades universitarias. Colaborar, bajo una supervisión, coordinada del personal académico, docente, en la corrección de tareas, pruebas, trabajos cortos, elaboración de material didáctico y otras actividades conexas. Apoyar al personal académico docente, según se considere pertinente, en actividades relacionadas con las lecciones y los procesos de evaluación de los cursos.",
-    "Actividades_HorasAsistente": "Colaborar, bajo una supervisión coordinada del personal académico docente, en la corrección de tareas, pruebas, trabajos cortos, elaboración de material didáctico y otras actividades semejantes. Colaborar en la organización desarrollo y seguimiento de proyectos en los diferentes ámbitos del quehacer laboratorios o talleres. Colaborar en la organización, desarrollo y seguimiento de proyectos en los diferentes ámbitos del quehacer universitario.",
-    "Actividades_HorasAsistentePosgrado": "Apoyar en la preparación de informes, presentaciones y publicaciones. Colaborar en el diseño y aplicación de diversas metodologías y técnicas de investigación. Colaborar en la organización, ejecución y logística de proyectos en diferentes ámbitos del quehacer universitario. Participar en actividades de un curso con la guía docente.",
-    "Contacto_RecintoParaiso": "Teléfono: 2511-7550, Correo:secretaria.rp@ucr.ac.cr",
-    "Servicio_AtenciónPsicologica": "La UCR ofrece atención psicológica gratuita a sus estudiantes a través de la Oficina de Bienestar y Salud. Este servicio brinda apoyo emocional, terapias individuales y talleres sobre salud mental. Puedes solicitar una cita enviando un correo a : PSICOLOGIA.RP@ucr.ac.cr",
-    "Servicio_ConsejeriaEstudiantil": "Es un servicio de orientación que ayuda a los estudiantes con problemas académicos, vocacionales y personales. Se ofrece en las distintas facultades y en la Oficina de Orientación.",
-    "Servicio_Biblioteca": "La UCR cuenta con múltiples bibliotecas en sus diferentes recintos y sedes proporcionando acceso a libros, revistas, y otros materiales de consulta, tanto físicos como digitales. Además, puedes acceder a las bibliotecas de forma virtual.",
+    "Actividad_HorasEstudiante": "Preparar materiales que sirvan de apoyo en las diferentes actividades universitarias. Colaborar, bajo una supervisión, coordinada del personal académico, docente, en la corrección de tareas, pruebas, trabajos cortos, elaboración de material didáctico y otras actividades conexas. Apoyar al personal académico docente, según se considere pertinente, en actividades relacionadas con las lecciones y los procesos de evaluación de los cursos.",
+    "Actividad_HorasAsistente": "Colaborar, bajo una supervisión coordinada del personal académico docente, en la corrección de tareas, pruebas, trabajos cortos, elaboración de material didáctico y otras actividades semejantes. Colaborar en la organización desarrollo y seguimiento de proyectos en los diferentes ámbitos del quehacer laboratorios o talleres. Colaborar en la organización, desarrollo y seguimiento de proyectos en los diferentes ámbitos del quehacer universitario.",
+    "Actividad_HorasAsistentePosgrado": "Apoyar en la preparación de informes, presentaciones y publicaciones. Colaborar en el diseño y aplicación de diversas metodologías y técnicas de investigación. Colaborar en la organización, ejecución y logística de proyectos en diferentes ámbitos del quehacer universitario. Participar en actividades de un curso con la guía docente.",
     "Proceso_PrestamoLibros": "Los estudiantes pueden consultar libros a través del catálogo en línea del Sistema de Bibliotecas, Documentación e Información (SIBDI). Si el libro está disponible en la biblioteca, solo deben acercarse y consultar por el número de signatura de este.",
     "Proceso_PrestamoAudiovisuales": "Los materiales audiovisuales pueden ser prestados a través de las bibliotecas que cuentan con este servicio. Se debe presentar la identificación estudiantil y respetar el tiempo máximo de préstamo.",
     "Proceso_ConfiguracionWifi": "Para conectarse al WiFi de la UCR, los estudiantes deben ingresar a la red “eduroam” con su correo institucional (@ucr.ac.cr) y contraseña. También pueden acceder mediante la configuración manual disponible en la página del Centro de Informática.",
+    "Proceso_matriculaTCU": "Para matricular el Trabajo Comunal Universitario (TCU), debes cumplir con los requisitos de avance en la carrera (generalmente la mitad de los créditos totales de la carrera aprobados) y seguir el proceso de inscripción en la plataforma oficial de la UCR.",
+    "Concepto_TCU": "El Trabajo Comunal Universitario (TCU) es un requisito académico en la UCR donde los estudiantes participan en proyectos de servicio a la comunidad como parte de su formación.",
+    "Concepto_NotaIngreso":"es el promedio de admisión, que se calcula a partir de la nota de presentación y la nota de la Prueba de Aptitud Académica (PAA)", #Cuidado con nota corte o nota adimisión
+    "Proceso_NotaIngreso":"Se puede obtener en la dirección https://ori.ucr.ac.cr/admision",
+   
+    #Pago matricula Dirección web:
+    "Proceso_PagoMatricula": "Para realizar el pago de la matricula o los créditos matriculados, tienes que consultar por tu número de cédula o de carnet para obtener el monto a pagar, puedes realizar el pago en la siguiente dirección: https://www.ucrenlinea.com/ ",
     
+   
+    #FALTA METER A WIT:
+    "Contacto_RecintoParaiso": "Teléfono: 2511-7550, Correo:secretaria.rp@ucr.ac.cr",
     
-    "Nota de ingreso":"", #Cuidado con nota corte o nota adimisión
+    #Link:
+    "Servicio_AtencionPsicologica": "La UCR ofrece atención psicológica gratuita a sus estudiantes a través de la Oficina de Bienestar y Salud. Este servicio brinda apoyo emocional, terapias individuales y talleres sobre salud mental. Puedes solicitar una cita enviando un correo a : PSICOLOGIA.RP@ucr.ac.cr",
     
+    "Servicio_ConsejeriaEstudiantil": "Es un servicio de orientación que ayuda a los estudiantes con problemas académicos, vocacionales y personales. Se ofrece en las distintas facultades y en la Oficina de Orientación.",
+    "Servicio_Biblioteca": "La UCR cuenta con múltiples bibliotecas en sus diferentes recintos y sedes proporcionando acceso a libros, revistas, y otros materiales de consulta, tanto físicos como digitales. Además, puedes acceder a las bibliotecas de forma virtual.",
+    "Servicio_Referencista": "Es una ayuda que la U le brinda a los estudiantes en temas relacionados a las citaciones en texto en formato APA 7, citas bibliográficas y temas relacionados.",
+    "Servicio_AsuntosEstudiantiles": "La Oficina de Registro de asuntos estudiantiles del Recinto de Paraíso se encarga de la administración de procesos de admisión, permanencia y graduación, de los estudiantes.",
+    "Servicio_EducacionContinua": "Cursos, talleres y capacitaciones para la comunidad universitaria y público en general.",
+    "Servicio_Recreación": "Espacios y actividades deportivas o culturales para los estudiantes.",
+    "Servicio_RecepcionBecas": "Gestión y recepción de solicitudes de becas estudiantiles.",
+    "Servicio_TCU": "Programas de vinculación con la comunidad en diversas áreas.",
+    "Servicio_Medicina": "Atención médica básica para estudiantes y funcionarios."
+
+
+    "Concepto_BecaOdontologia": "El beneficio consiste en cubrir los costos de tratamientos odontológicos en Atención Primaria Básica, en cualquier ciclo lectivo siempre y cuando tenga beca socioeconómica vigente. ",
+    "Solicitd_BecaOdontologia": "Se puede solicitar el servicio de odontologia en la siguiente dirección: https://odontoweb.ucr.ac.cr/odontoweb/",
+
+    "Concepto_BecaReubicacion": "Este beneficio complementario consiste en un subsidio económico que se asigna a estudiantes que provienen de un grupo familiar que reside en zonas alejadas al centro de estudio, con el propósito de apoyar el pago del alquiler durante el tiempo lectivo.",
+    "Solicitud_BecaReubicacion": "Se puede solicitar el beneficio de reubicación en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
+
+    "Concepto_BecaOptometria":"Los servicios de Optometría y Oftalmología consisten en un descuento total de los costos de diagnóstico o compra de anteojos del paquete básico contratado por la Universidad de Costa Rica.",
+    "Solicitud_BecaOptometria":"Se puede realizar la solicitud del servicio de optometría en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/ShowSolicitudAtencionMedicaAction.do",
+
+    "Concepto_BecaTransporte":"El beneficio consiste en un subsidio económico que se le asigna a estudiantes de zonas cercanas e intermedias al centro de estudio para cubrir parcialmente el costo del traslado hacia la Universidad. Lo pueden solicitar los estudiantes con categoría de beca socioeconómica 4 y 5.",
+    "Solicitud_BecaTransporte":"Se puede solicitar el beneficio de transporte en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
+
+    "Horarios": "Los horarios de clases y atención administrativa varían cada semestre. Se pueden consultar en la página oficial del Recinto Paraíso o en el sistema de matrícula de la UCR.",
+    
+    "Carreras": "El Recinto Paraíso ofrece diversas carreras en áreas como educación, administración y tecnología. La lista actualizada se encuentra en el sitio web de la UCR.",
+    "Calendario": "El calendario académico incluye fechas importantes como matrícula, inicio de clases y exámenes. Se publica cada semestre en el sitio oficial de la UCR."
+   
+    #Horario de la U
+    #Como se maneja horas asistente y asistente posgrado
+    
+    #Tipos de becas socioeconomica
+    
+
     "por_defecto": "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
     
 } 
