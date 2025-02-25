@@ -1,0 +1,379 @@
+{
+    "contacts": [
+        {
+            "name": "Abigail Velázquez Porras",
+            "email": "abigail.velasquez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Adriana Morales Hernández",
+            "email": "adriana.moraleshernandez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Alberto Acevedo Gutiérrez",
+            "email": "alberto.acevedo@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Alejandro Jiménez Tassara",
+            "email": "alejandro.jimenez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Alexa Bolaños Carpio",
+            "email": "alexa.bolanos@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Alizon Calderón Torres",
+            "email": "alizon.calderon@ucr.ac.cr",
+            "phone": "2511-7557"
+        },
+        {
+            "name": "Allan Castro Prieto",
+            "email": "allan.castro@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Allan Ramírez Cerdas",
+            "email": "allan.ramirezcerdas@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Álvaro Mena Monge",
+            "email": "alvaro.mena@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ana Catalina Camacho Navarro",
+            "email": "anacatalina.camacho@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ana Catalina Siles Solano",
+            "email": "ana.siles@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ana Felicia Solano Arguedas",
+            "email": "anafelicia.solano@ucr.ac.cr",
+            "phone": "2511-7580"
+        },
+        {
+            "name": "Ana Lucia Coto Chinchilla",
+            "email": "ana.coto@ucr.ac.cr",
+            "phone": "2511-7560"
+        },
+        {
+            "name": "Ana Moya Monge",
+            "email": "ana.moya@ucr.ac.cr",
+            "phone": "2511-7559"
+        },
+        {
+            "name": "Andrea Ramírez Zúniga",
+            "email": "andrea.ramirezzuniga@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Andrés Jiménez Fernández",
+            "email": "andres.jimenez17@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Andrés Meseguer Rojas",
+            "email": "andres.messeguer@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Auxiliadora Vega Bustos",
+            "email": "maria.vegabustos@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Bianca Paz García",
+            "email": "bianca.paz@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Carolina Brenes Molina",
+            "email": "carolina.brenesmolina@ucr.ac.cr",
+            "phone": "2511-7556"
+        },
+        {
+            "name": "Caseta de seguridad",
+            "email": "seguridad.rp@ucr.ac.cr",
+            "phone": "(506) 2511-7565"
+        },
+        {
+            "name": "César Fonseca Araya",
+            "email": "cesar.fonsecaaraya@ucr.ac.cr",
+            "phone": "2511-7565"
+        },
+        {
+            "name": "Cinthya Arce Alvarado",
+            "email": "cinthya.arcealvarado@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Daniel Flores Gómez",
+            "email": "daniel.floresgomez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Edgar Rojas Quesada",
+            "email": "edgar.rojasquesada@ucr.ac.cr",
+            "phone": "2511-7565"
+        },
+        {
+            "name": "Edgardo Araya Sibaja",
+            "email": "edgardo.araya@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Elvia Ureña Salazar",
+            "email": "elvia.urena@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ernesto Valverde Villalobos",
+            "email": "e.valverde.villalobos@gmail.com",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Esteban Sanabria Mora",
+            "email": "esteban.sanabria@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Evelyn Fernández Fonseca",
+            "email": "evelyn.fernandez@ucr.ac.cr",
+            "phone": "2511-7568"
+        },
+        {
+            "name": "Ezequiel Solano Corrales",
+            "email": "ezequiel.solano@ucr.ac.cr",
+            "phone": "2511-7558"
+        },
+        {
+            "name": "Fabio Alvarado Arce",
+            "email": "fabio.alvaradoarce@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Federico Rivera Romero",
+            "email": "federico.rivera@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Fernando Camacho Mora",
+            "email": "fernando.camachomora@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Gabriela Guevara Mora",
+            "email": "gabriela.guevara@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Geovanni Figueroa Mata",
+            "email": "geovanny.figueroa@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Gilberth Chaves Ávila",
+            "email": "gilberth.chavesavila@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Gina Arrieta Molina",
+            "email": "gina.arrieta@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Guillermo González Campos",
+            "email": "guillermo.gonzalezcampos@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Gustavo Romero Zúñiga",
+            "email": "gustavo.romero@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Hannia León Fuentes",
+            "email": "hannia.leon_f@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Henry Arce Ramírez",
+            "email": "henry.arce@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "José David Ulloa Soto",
+            "email": "jose.ulloasoto@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "José Eduardo Gutiérrez Durán",
+            "email": "jose.gutierrezduran@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Jose Francisco Acevedo",
+            "email": "jose.acevedogutierrez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "José Luis Vásquez Vásquez",
+            "email": "jose.vasquez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "José Paz Barahona",
+            "email": "jose.paz@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "José Rafael Sánchez Meza",
+            "email": "rafael.sanchezmeza@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Juan Barahona Cubillo",
+            "email": "juan.barahona@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Karen Vindas Monestel",
+            "email": "karen.vindasmonestel@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Kenneth Carvajal Maykall",
+            "email": "kenneth.carvajal@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Leonardo Astorga Sanchez",
+            "email": "leonardo.astorgasanchez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Livieth Gamboa Solano",
+            "email": "livieth.gamboa@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Lucia Rescia Chinchilla",
+            "email": "ana.rescia@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Luis González Martínez",
+            "email": "luis.gonzalezmartinez@ucr.ac.cr",
+            "phone": "2511-7565"
+        },
+        {
+            "name": "Madelyn Vanesa Vives Rivera",
+            "email": "madelyn.vives@ucr.ac.cr",
+            "phone": "2511-7565"
+        },
+        {
+            "name": "Manuel Garita Mora",
+            "email": "manuel.garita@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "María Eugenia López Ruiz",
+            "email": "maria.eugenia@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Mario Enrique Gutiérrez Garita",
+            "email": "mario.gutierrezgarita@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Mónica Morera Solano",
+            "email": "monica.morera@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Mónica Solís Salazar",
+            "email": "monica.solis@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Nidia Rojas Zúñiga",
+            "email": "nidia.rojas@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Orlando Quesada Murillo",
+            "email": "orlando.quesada@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Pablo Segura Rojas",
+            "email": "pablo.segura@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Patricia Agüero Chaves",
+            "email": "patricia.aguerop@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Patricia Cordero Hernández",
+            "email": "patricia.cordero@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Raquel Montero Morera",
+            "email": "raquel.montero@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Rebeca Mora González",
+            "email": "rebeca.mora@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ricardo Álvarez Fallas",
+            "email": "ricardo.alvarezfallas@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Rodrigo Guzmán Jiménez",
+            "email": "rodrigo.guzman@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Ruth Pérez Méndez",
+            "email": "ruth.perezmendez@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Samuel Zúñiga Gamboa",
+            "email": "samuel.zuniga@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Sergio Paniagua Rodríguez",
+            "email": "sergio.paniagua@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Silvia Herrera Arias",
+            "email": "silvia.herrera@ucr.ac.cr",
+            "phone": "2511-7550"
+        },
+        {
+            "name": "Verónica Céspedes Rodríguez",
+            "email": "veronica.cespedes@ucr.ac.cr",
+            "phone": "2511-7550"
+        }
+    ]
+}

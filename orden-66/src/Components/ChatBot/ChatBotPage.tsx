@@ -2,87 +2,92 @@ import { useEffect, useRef, useState } from "react";
 import "./ChatBotPage.css";
 import IconChat from "./icon.tsx";
 import messageServices from "../../services/messageServices.tsx";
-import type { UserTypes } from "./userTypes.ts";
-
-const Message = ({ sender, message, formattedTime }: { sender: string, message: string, formattedTime: string }) => {
-    const [mute, setMute] = useState<boolean>(true);
-
-    useEffect(() => {
-        if (!mute) {
-            const utterance = new SpeechSynthesisUtterance(message);
-            utterance.lang = "en-ES";
-
-            const voices = speechSynthesis.getVoices();
-
-            const selectedVoice = voices.find(voice => voice.lang === "ja-JP");
-            utterance.voice = selectedVoice || null;
-
-            speechSynthesis.speak(utterance);
-
-            utterance.onend = () => {
-                setMute(true);
-            };
-
-        } else {
-            speechSynthesis.cancel();
-        }
-    }, [mute, message]);
-
-    return (
-        <>
-            <div className={sender != "User" ? "msg left-msg animate__animated animate__backInLeft" : "msg right-msg animate__animated animate__backInRight"}>
-                <div
-                    className="msg-img"
-                    style={{ backgroundImage: sender != "User" ? 'url(https://i.imgur.com/tox0ewn.png)' : 'url(https://static-00.iconduck.com/assets.00/death-star-icon-2043x2048-kbdst70a.png)' }}
-                ></div>
-                <div className="msg-bubble">
-                    <div className="msg-info">
-                        <div className="msg-info-name">{sender}</div>
-                        <div className="msg-info-time">{formattedTime}</div>
-                    </div>
-                    <div className="msg-text" dangerouslySetInnerHTML={{ __html: message }} />
-                    {sender != "User" ? //Solo el bot puede tener speaker
-                        <div className="msg-options" onClick={() => setMute(!mute)}>
-                            {mute ?
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style={{ width: "18px" }}><path fill="#41ade7" d="M301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64 352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM425 167l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" /></svg> :
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style={{ width: "20px" }}><path fill="#41ade7" d="M533.6 32.5C598.5 85.2 640 165.8 640 256s-41.5 170.7-106.4 223.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C557.5 398.2 592 331.2 592 256s-34.5-142.2-88.7-186.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM473.1 107c43.2 35.2 70.9 88.9 70.9 149s-27.7 113.8-70.9 149c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C475.3 341.3 496 301.1 496 256s-20.7-85.3-53.2-111.8c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zm-60.5 74.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5zM301.1 34.8C312.6 40 320 51.4 320 64l0 384c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352 64 352c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l67.8 0L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3z" /></svg>
-                            }
-                        </div> :
-                        <></>
-                    }
-                </div>
-            </div>
-        </>
-    );
-}
+import type { UserTypes } from "../../types/userTypes.ts";
+import Message from "../Messages/MessagesComponents.tsx";
+import { ChatBotMessages } from "./ChatBotMessages.tsx";
+import { ChatBotMessagesTypes } from "../../types/ChatBotMessagesTypes.ts";
 
 const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
     const [botName] = useState<string>("Asistente R2-D2");
-    const [hear, setHear] = useState<boolean>(false);
-    const now = new Date();
-    const formattedTime = now.toLocaleTimeString("es-ES", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false, // Cambia a true si quieres formato 12h
-    });
+    const [hear, setHear] = useState<boolean>(false); // Activa el micrófono
+    /* si van 3 veces que no entiende, se le pregunte al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión */
+    const [numTimesNotUnderstood, setNumTimesNotUnderstood] = useState<number>(3);
+    const [formattedTime] = useState<string>(`${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`); //
+    const [count, setCount] = useState<number>(0); // Contador para desactivar el chat despues de 3 mensajes
+    const [talk, setTalk] = useState<boolean>(false); // El chat hablara siempre que haya un mensaje nuevo
+    const [messageChat] = useState<ChatBotMessagesTypes[]>(ChatBotMessages);
 
-    const inputRef = useRef<HTMLInputElement>(null); // Obtiene el valor del input
+
+    const inputRef = useRef<HTMLTextAreaElement>(null); // Obtiene el valor del input
     const chatRef = useRef<HTMLDivElement>(null); // Baja el chat despues de enviar un mensaje
 
     const [historyChat, setHistoryChat] = useState<UserTypes[]>(() => {
         const savedHistory = localStorage.getItem('historyChat');
         return savedHistory ? JSON.parse(savedHistory) : [{
             sender: botName,
-            message: "¡Hola! ¿En qué puedo ayudarte?",
+            message: messageChat[0].message,
             formattedTime: formattedTime
         }];
     });
+
+    const getMessageForType = (type: string) => {
+        return messageChat.find(x => x.type === type)?.message ?? "none";
+    }
+
+    useEffect(() => { // Desactiva el chat despues de 3 mensajes y envia un mensaje de despedida
+        if (count < 3) {
+            const timeout = setTimeout(() => {
+                setCount(count + 1);
+                if (count === 2) {
+                    setHistoryChat(prevHistory => [
+                        ...prevHistory,
+                        { sender: botName, message: messageChat[1].message, formattedTime: formattedTime }
+                    ]);
+                } else {
+                    setHistoryChat(prevHistory => [
+                        ...prevHistory,
+                        { sender: botName, message: messageChat[2].message, formattedTime: formattedTime }
+                    ]);
+                }
+
+            }, 30000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [historyChat]);
+
+    useEffect(() => { // si el chatbot contesta 3 veces que no entiende, se le pregunta al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión
+        var lastMessage = historyChat[historyChat.length - 1];
+        console.log("lastMessage", lastMessage);
+
+        if (lastMessage.sender === botName && lastMessage.message === getMessageForType('default')) {
+            if (numTimesNotUnderstood === 0) {
+                setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType('fallback'), formattedTime: formattedTime }]);
+                console.log("Se envio un mensaje de fallback");
+            }
+            
+            if (numTimesNotUnderstood >= 1) {
+                console.log("No entendió el mensaje");
+            }
+            setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
+        }
+
+        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('si')) {
+            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[4].message, formattedTime: formattedTime }]);
+            console.log("El usuario dijo que si");
+        }
+        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('no')) {
+            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[5].message, formattedTime: formattedTime }]);
+            console.log("El usuario dijo que no");
+        }
+    }, [historyChat]);
 
     const handleSendMessage = async () => {
         if (inputRef.current) {
             const message = inputRef.current.value.trim();
             if (message !== "") {
                 setHistoryChat(prevHistory => [...prevHistory, { sender: 'User', message: message, formattedTime: formattedTime }]);
+                setCount(0);
                 inputRef.current.value = "";
 
                 try {
@@ -121,12 +126,41 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         }
     }, [historyChat]);
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => { // Para usar el enter
+    useEffect(() => {
+        if (isHiding) {
+            deleteDefaultMessages();
+            setTalk(false);
+        }
+    }, [isHiding]);
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => { // Para usar el enter
         if (e.key === 'Enter') {
             e.preventDefault();
             handleSendMessage();
         }
     };
+
+    const deleteDefaultMessages = () => {
+        setHistoryChat((prevHistory) => {
+            const updatedHistory = prevHistory.filter(
+                (item) =>
+                    item.message !== messageChat[1].message && item.message !== messageChat[2].message
+            );
+            localStorage.setItem('historyChat', JSON.stringify(updatedHistory));
+            return updatedHistory;
+        });
+    };
+
+    useEffect(() => { // Habla el chat si el último mensaje fue del bot y el talk está activado
+        var lastMessage = historyChat[historyChat.length - 1];
+        if (talk && lastMessage.sender === botName) {
+            const utterance = new SpeechSynthesisUtterance(lastMessage.message);
+            utterance.lang = "es-ES";
+            setTimeout(() => {
+                window.speechSynthesis.speak(utterance);
+            }, 100); // 100 ms de retraso        
+        }
+    }, [talk, historyChat]);
 
     return (
         <div className={`chatbot animate__animated ${isHiding ? "animate__slideOutDown" : "animate__slideInUp"}`}>
@@ -135,6 +169,17 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
                     <div className="msger-header-title">
                         {<IconChat />}
                         <span>Chatbot y Asistente UCR</span>
+                    </div>
+
+                    <div className="checkbox-wrapper-35">
+                        <input value="private" name="switch" id="switch" type="checkbox" className="switch" />
+                        <label htmlFor="switch" onClick={() => setTalk(!talk)}>
+                            <span className="switch-x-text">Talk is </span>
+                            <span className="switch-x-toggletext">
+                                <span className="switch-x-unchecked"><span className="switch-x-hiddenlabel">Unchecked: </span>Off</span>
+                                <span className="switch-x-checked"><span className="switch-x-hiddenlabel">Checked: </span>On</span>
+                            </span>
+                        </label>
                     </div>
                 </header>
 
@@ -145,8 +190,10 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
                 </main>
 
                 <form className="msger-inputarea">
-                    <input type="text" className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress} />
-
+                    <textarea className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress}
+                        disabled={count > 2}
+                        maxLength={100}
+                    />
                     <div className="microphone" onClick={() => setHear(!hear)}>
                         {hear ?
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style={{ width: "12px" }}>

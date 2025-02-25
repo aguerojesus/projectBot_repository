@@ -16,12 +16,10 @@ def obtener_intencion(mensaje):
                                 params={"q": mensaje})
         
         response_data = response.json()
-        print("Respuesta de Wit.ai:", response_data)  # Depuración completa
-        
+
         # Verificar si hay intenciones detectadas
         intents = response_data.get("intents", [])
         if intents:
-            print(f"Intención detectada: {intents[0]['name']}")  # Imprimir la intención detectada
             return intents[0]["name"]  # Retorna la intención
         
         return "por_defecto"  # Si no detecta intención, usa la respuesta por defecto
