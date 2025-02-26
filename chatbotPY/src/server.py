@@ -3,6 +3,7 @@ from flask_cors import CORS
 from correct_spelling import correctSpelling
 from wit_ai_integration import obtener_intencion
 from responses_chatbot import obtener_respuesta
+from browser import buscador_response
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})  # Habilitar CORS
@@ -23,8 +24,12 @@ def procesar_mensaje():
     
     try:
         intent = obtener_intencion(correctSpelling(texto))  # Detectar intención con Wit.ai
-        mensaje_respuesta = obtener_respuesta(intent)  # Obtener respuesta según la intención
-        return jsonify({"respuesta": mensaje_respuesta})
+        if intent != "por_defecto":
+            mensaje_respuesta = obtener_respuesta(intent)  # Obtener respuesta según la intención
+            return jsonify({"respuesta": mensaje_respuesta})
+        else:
+            mensaje_respuesta = buscador_response(texto)
+
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": "Error procesando el mensaje"}), 500

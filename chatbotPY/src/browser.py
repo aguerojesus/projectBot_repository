@@ -1,51 +1,71 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
+import requests
+from transformers import pipeline
+import torch
+import torch_directml  # Importar DirectML para AMD en Windows
 
-# Configuración para ejecutar con interfaz gráfica (sin necesidad de headless)
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')  # A veces ayuda a evitar errores
-chrome_options.add_argument('--disable-dev-shm-usage')  # Evita el uso compartido de memoria
+# Claves API (Reemplázalas con las tuyas)
+SERPAPI_KEY = "9d2a4bb719f8c31af03d7485a78fb314cea72e42166fa3b719c16ee37cfb7759"
+GEMINI_API_KEY = "AIzaSyCUGwh8GMZ6qwhUNhegHoNNppuugQR48O4"
 
-# Configurar el servicio con WebDriverManager para instalar y gestionar el driver automáticamente
-service = Service(ChromeDriverManager().install())
+device = torch_directml.device()  # Usar la GPU de AMD
 
-# Inicializar el navegador
-driver = webdriver.Chrome(service=service, options=chrome_options)
+# Modelo de Hugging Face para resumen
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
+def buscar_en_serpapi(consulta):
+    #Busca información en Google usando SerpAPI
+    url = "https://serpapi.com/search"
+    params = {"q": consulta, "api_key": SERPAPI_KEY}
+    
+    respuesta = requests.get(url, params=params)
+    if respuesta.status_code == 200:
+        resultados = respuesta.json().get("organic_results", [])
+        return resultados
+    else:
+        print(f"❌ Error en SerpAPI: {respuesta.status_code}")
+        return []
 
-# Abrir la página de ChatGPT
-driver.get("https://chat.openai.com/")
+def resumir_con_huggingface(texto):
+    #Resume el contenido usando Hugging Face
+    if len(texto) > 0:
+        resumen = summarizer(texto, max_length=100, min_length=30, do_sample=False)
+        return resumen[0]['summary_text']
+    else:
+        return "No hay contenido suficiente para resumir."
 
-# Esperar hasta que el campo de texto esté visible
-wait = WebDriverWait(driver, 10)
-input_box = wait.until(EC.visibility_of_element_located((By.ID, "prompt-textarea")))
+def mejorar_con_gemini(texto):
+    #Pide a Gemini que refine y haga más atractivo el resumen
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
+    headers = {"Content-Type": "application/json"}
+    data = {
+        "contents": [{"parts": [{"text": f"Crea una respuesta carismatica, y formal en base al siguiente texto, una unica respuesta no pongas nada mas, de no mas de 250 caracteres: {texto}"}]}]
+    }
 
-# Escribir un mensaje en el campo de texto
-input_box.send_keys("¡Hola, ChatGPT!")
+    respuesta = requests.post(url, json=data, headers=headers)
+    
+    if respuesta.status_code == 200:
+        respuesta_json = respuesta.json()
+        try:
+            return respuesta_json["candidates"][0]["content"]["parts"][0]["text"]
+        except KeyError:
+            return "⚠️ Error: No se pudo extraer el texto de la respuesta de Gemini."
+    else:
+        return f"❌ Error en la solicitud a Gemini: {respuesta.status_code}"
 
-# Esperar un poco para simular la escritura y enviar el mensaje
-sleep(1)
+def buscador_response(consulta):
+    respuesta = ""  # 👈 Aquí está el problema, nunca se asigna un valor real
 
-# Enviar el mensaje presionando "Enter"
-input_box.send_keys(Keys.RETURN)
+    # 1️⃣ Buscar información en SerpAPI
+    consulta = "Psicologia UCR Paraíso"
+    resultados = buscar_en_serpapi(consulta)
 
-# Esperar unos segundos para que ChatGPT responda
-sleep(120)
+    # 2️⃣ Extraer y concatenar snippets de los primeros 3 resultados
+    contenido = " ".join([r.get("snippet", "") for r in resultados[:3]])
 
-# Intentar encontrar la respuesta del chatbot con el nuevo selector
-try:
-    # Buscar el div que contiene la respuesta dentro de la estructura proporcionada
-    respuesta = driver.find_element(By.XPATH, '//div[contains(@class, "markdown prose")]//p')
-    print("\nRespuesta de ChatGPT:")
-    print(respuesta.text)
-except Exception as e:
-    print("\nNo se pudo encontrar la respuesta de ChatGPT. Error:", str(e))
+    # 3️⃣ Resumir con Hugging Face y luego mejorar con Gemini
+    if contenido:
+        resumen = resumir_con_huggingface(contenido)
+        mensaje_final = mejorar_con_gemini(resumen)
+        respuesta = mensaje_final  # 👈 Aquí asignamos el mensaje final a `respuesta`
 
-# Cerrar el navegador después de obtener la respuesta
-driver.quit()
+    return respuesta  # 👈 Ahora la función devuelve el resultado correcto
+

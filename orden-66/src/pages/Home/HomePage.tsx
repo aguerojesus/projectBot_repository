@@ -30,7 +30,7 @@ const HomePage = () => {
         <>
             <iframe
                 src="/Pagina.html"
-                style={{ width: '100%', height: '100vh', border: 'none' }}
+                style={{ width: '100%', height: '97vh', border: 'none' }}
                 title="Pagina HTML"
             />
             <FloatButtonComponent

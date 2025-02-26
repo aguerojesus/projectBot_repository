@@ -1,3 +1,5 @@
 flask==3.1.0
 pip install flask flask-cors python-dotenv requests
 pip install pyspellchecker
+pip install transformers
+pip install torch torchvision torchaudio
