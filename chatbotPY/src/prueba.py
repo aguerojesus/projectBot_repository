@@ -1,7 +1,7 @@
 
 from browser import buscador_response
 
-texto = "Cual es el horario de psicologia"
+texto = "Que es un pizza"
 
 mensaje_respuesta = buscador_response(texto)
 

@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from correct_spelling import correctSpelling
 from wit_ai_integration import obtener_intencion
 from responses_chatbot import obtener_respuesta
 from browser import buscador_response
@@ -23,12 +22,13 @@ def procesar_mensaje():
         return jsonify({"error": "Debes enviar un mensaje de texto"}), 400
     
     try:
-        intent = obtener_intencion(correctSpelling(texto))  # Detectar intención con Wit.ai
+        intent = obtener_intencion(texto)  # Detectar intención con Wit.ai
         if intent != "por_defecto":
             mensaje_respuesta = obtener_respuesta(intent)  # Obtener respuesta según la intención
-            return jsonify({"respuesta": mensaje_respuesta})
+            return jsonify({"respuesta": "Respuesta wit: " + mensaje_respuesta})
         else:
             mensaje_respuesta = buscador_response(texto)
+            return jsonify({"respuesta": "Respuesta gemini: " + mensaje_respuesta})
 
     except Exception as e:
         print("Error:", e)
