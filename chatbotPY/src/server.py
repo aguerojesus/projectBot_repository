@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from browser import buscador_response
 from correct_spelling import correctSpelling
+from inferencia_bool import es_negativa
 from wit_ai_integration import obtener_intencion
 from responses_chatbot import obtener_respuesta
 
@@ -39,6 +40,25 @@ def procesar_mensaje():
 @app.route("/mensaje", methods=["GET"])
 def prueba():
     return jsonify({"mensaje": "Mensaje recibido correctamente"})
+
+
+# Ruta principal para recibir las consultas
+@app.route('/analizar', methods=['POST'])
+def analizar():
+    # Obtener la consulta del cuerpo de la solicitud
+    data = request.get_json()
+    
+    # Verificar si se envió la consulta
+    if 'consulta' not in data:
+        return jsonify({'error': 'Falta el parámetro "consulta"'}), 400
+    
+    consulta = data['consulta']
+    
+    # Llamar a la función para verificar si la consulta es negativa
+    resultado = es_negativa(consulta)
+    
+    # Retornar el resultado como respuesta JSON
+    return resultado
 
 if __name__ == "__main__":
     app.run(port=3000, debug=True)

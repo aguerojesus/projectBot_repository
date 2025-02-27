@@ -1,28 +1,59 @@
 import { useEffect, useState } from "react";
 import "./MessagesComponents.css";
 
-const Message = ({ sender, message, formattedTime }: { sender: string, message: string, formattedTime: string}) => {
+const Message = ({ sender, message, formattedTime }: { sender: string, message: string, formattedTime: string }) => {
     const [mute, setMute] = useState<boolean>(true);
 
     useEffect(() => {
         if (!mute && sender === "Asistente R2-D2") {
-            const utterance = new SpeechSynthesisUtterance(message);
-            utterance.lang = "en-ES";
-
+            const cleanText = document.createElement('div');
+            cleanText.innerHTML = message;
+            const textToRead = cleanText.textContent || cleanText.innerText || "";
+    
+            const maxChunkLength = 300;  // Fragmentos pequeños para evitar límites
+            const chunks: (string | undefined)[] = [];
+    
+            let remainingText = textToRead.trim();
+            while (remainingText.length > maxChunkLength) {
+                let splitIndex = remainingText.lastIndexOf(' ', maxChunkLength);
+                if (splitIndex === -1) splitIndex = maxChunkLength;  // Por si hay una palabra muy larga
+    
+                chunks.push(remainingText.substring(0, splitIndex));
+                remainingText = remainingText.substring(splitIndex + 1).trim();
+            }
+            if (remainingText) chunks.push(remainingText);
+    
             const voices = speechSynthesis.getVoices();
-
-            const selectedVoice = voices.find(voice => voice.lang === "es-ES");
-            utterance.voice = selectedVoice || null;
-
-            speechSynthesis.speak(utterance);
-
-            utterance.onend = () => {
-                setMute(true);
+            const selectedVoice = voices.find(voice => voice.lang === "es-ES") || null;
+    
+            const speakChunks = (index = 0) => {
+                if (index >= chunks.length) {
+                    setMute(true);  // Cuando termina de leer todo
+                    return;
+                }
+    
+                const utterance = new SpeechSynthesisUtterance(chunks[index]);
+                utterance.lang = "es-ES";
+                utterance.voice = selectedVoice;
+    
+                utterance.onend = () => {
+                    speakChunks(index + 1);  // Llama al siguiente fragmento
+                };
+    
+                utterance.onerror = (err) => {
+                    console.error("Error en síntesis de voz:", err);
+                    setMute(true);  // Por seguridad, silenciar si algo falla
+                };
+    
+                speechSynthesis.speak(utterance);
             };
-
+    
+            speechSynthesis.cancel();  // Cancelar cualquier lectura previa
+            speakChunks();  // Empezar a leer
+    
         } else {
-            speechSynthesis.cancel();
-        }
+            speechSynthesis.cancel();  // Si mute es true o cambia algo
+        }    
     }, [mute]);  // Las dependencias incluyen mute para asegurarse de que no se repita innecesariamente
 
     return (

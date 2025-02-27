@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./ChatBotPage.css";
 import IconChat from "./icon.tsx";
-import messageServices from "../../services/messageServices.tsx";
+import { messageServices, nplServices } from "../../services/messageServices.tsx";
 import type { UserTypes } from "../../types/userTypes.ts";
 import Message from "../Messages/MessagesComponents.tsx";
 import { ChatBotMessages } from "./ChatBotMessages.tsx";
@@ -20,6 +20,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
     const inputRef = useRef<HTMLTextAreaElement>(null); // Obtiene el valor del input
     const chatRef = useRef<HTMLDivElement>(null); // Baja el chat despues de enviar un mensaje
+    const isReadingRef = useRef<boolean>(false); // Indica si el bot está leyendo un mensaje
 
     const [historyChat, setHistoryChat] = useState<UserTypes[]>(() => {
         const savedHistory = localStorage.getItem('historyChat');
@@ -160,16 +161,65 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         });
     };
 
-    useEffect(() => { // Habla el chat si el último mensaje fue del bot y el talk está activado
-        var lastMessage = historyChat[historyChat.length - 1];
-        if (talk && lastMessage.sender === botName) {
-            const utterance = new SpeechSynthesisUtterance(lastMessage.message);
-            utterance.lang = "es-ES";
-            setTimeout(() => {
+    useEffect(() => {
+        const lastMessage = historyChat[historyChat.length - 1];
+        const rawMessage = lastMessage?.message ?? "";
+    
+        if (talk && lastMessage?.sender === botName) {
+            window.speechSynthesis.cancel();
+    
+            const sanitizeHTML = (html: string): string => {
+                const div = document.createElement('div');
+                div.innerHTML = html.replace(/<br\s*\/?>/g, '\n');
+                return div.textContent || div.innerText || "";
+            };
+    
+            const textToRead = sanitizeHTML(rawMessage).trim();
+            console.log("Texto completo que se va a leer:", textToRead);
+    
+            const maxLength = 300;
+            const chunks: string[] = [];
+            let remainingText = textToRead;
+    
+            while (remainingText.length > maxLength) {
+                let splitIndex = remainingText.lastIndexOf(' ', maxLength);
+                if (splitIndex === -1) splitIndex = maxLength;
+    
+                chunks.push(remainingText.substring(0, splitIndex));
+                remainingText = remainingText.substring(splitIndex + 1).trim();
+            }
+            if (remainingText) chunks.push(remainingText);
+    
+            const speakChunk = (index: number) => {
+                if (!talk || index >= chunks.length) {
+                    isReadingRef.current = false;
+                    return;
+                }
+                isReadingRef.current = true;
+    
+                const utterance = new SpeechSynthesisUtterance(chunks[index]);
+                utterance.lang = "es-ES";
+    
+                utterance.onstart = () => console.log("Leyendo fragmento:", chunks[index]);
+    
+                utterance.onend = () => setTimeout(() => speakChunk(index + 1), 50);
+    
+                utterance.onerror = (err) => {
+                    console.error("Error en speechSynthesis:", err);
+                    isReadingRef.current = false;
+                };
+    
                 window.speechSynthesis.speak(utterance);
-            }, 100); // 100 ms de retraso        
+            };
+    
+            speakChunk(0);
+        } else {
+            window.speechSynthesis.cancel();
         }
-    }, [talk, historyChat]);
+    
+        return () => window.speechSynthesis.cancel();
+    }, [talk, historyChat, botName]);
+    
 
     useEffect(() => { // Bloquea el input y elimina el localStorage si el bot se despide
         if (historyChat[historyChat.length - 1].message.includes("🌟")) {
