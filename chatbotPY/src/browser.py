@@ -1,51 +1,102 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
+import requests
+import spacy
+import re
 
-# Configuración para ejecutar con interfaz gráfica (sin necesidad de headless)
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')  # A veces ayuda a evitar errores
-chrome_options.add_argument('--disable-dev-shm-usage')  # Evita el uso compartido de memoria
+from mejorar_consulta import identificar_intencion_sujeto
 
-# Configurar el servicio con WebDriverManager para instalar y gestionar el driver automáticamente
-service = Service(ChromeDriverManager().install())
+# Cargar el modelo de spaCy para español
+nlp = spacy.load("es_core_news_sm")
 
-# Inicializar el navegador
-driver = webdriver.Chrome(service=service, options=chrome_options)
+# Clave API de SerpAPI (reemplázala con la tuya)
+SERPAPI_KEY = "43e8ea9c8e549634f16a2d62a08197a26cbcbe74350090a100ffd5bb8564fb73"
 
-# Abrir la página de ChatGPT
-driver.get("https://chat.openai.com/")
+GEMINI_API_KEY = "AIzaSyCUGwh8GMZ6qwhUNhegHoNNppuugQR48O4"
 
-# Esperar hasta que el campo de texto esté visible
-wait = WebDriverWait(driver, 10)
-input_box = wait.until(EC.visibility_of_element_located((By.ID, "prompt-textarea")))
+prompt_gemini = """
+Responde como si fueras la Universidad de Costa Rica, sede Paraíso. Mantén un tono formal e institucional, brindando información clara y precisa con un maximo de 300 caracteres. Si el resumen de información es relevante para la respuesta, úsalo. Si no lo es, responde solo con información pertinente a la UCR de Paraíso.
 
-# Escribir un mensaje en el campo de texto
-input_box.send_keys("¡Hola, ChatGPT!")
+Para saludos o despedidas como "Hola", "Adiós" o similares, responde de manera cordial y respetuosa, mencionando que estás aquí para ayudar con información sobre la UCR de Paraíso.
+En los demás casos, si no tienes suficiente información para dar una respuesta adecuada a la pregunta del usuario, no respondas.
 
-# Esperar un poco para simular la escritura y enviar el mensaje
-sleep(1)
+En la respuesta agrega el link de la fuente de información de donde se extrajo el resumen. Si no se extrajo información de una fuente, no incluyas link.
+Utiliza <a link>Nombre apropiado</a>
+Puedes agregar amoticones si lo consideras necesario, pero no abuses de ellos.
+Importante, Estructura la respuesta con html para darle formato. Ejemplo:
+    - <a> para enlaces
+    - <b> para negritas
+    - <i> para cursivas
+    - <ul> y <li> para listas
+    - <p> para párrafos
+    - <br> para saltos de línea
+    - <h1>, <h2>, <h3> para títulos
+    - <img> para imágenes
+"""
 
-# Enviar el mensaje presionando "Enter"
-input_box.send_keys(Keys.RETURN)
+def buscar_en_serpapi(consulta):
 
-# Esperar unos segundos para que ChatGPT responda
-sleep(120)
+    """Busca información en Google usando SerpAPI con filtrado de sitios específicos"""
+    query = f"{consulta} site:paraiso.ucr.ac.cr OR site:ematricula.ucr.ac.cr OR site:vive.ucr.ac.cr"
+    url = "https://serpapi.com/search"
+    params = {"q": query, "api_key": SERPAPI_KEY}
+    
+    respuesta = requests.get(url, params=params)
+    if respuesta.status_code == 200:
+        resultados = respuesta.json().get("organic_results", [])
+        return resultados
+    else:
+        print(f"❌ Error en SerpAPI: {respuesta.status_code}")
+        return []
 
-# Intentar encontrar la respuesta del chatbot con el nuevo selector
-try:
-    # Buscar el div que contiene la respuesta dentro de la estructura proporcionada
-    respuesta = driver.find_element(By.XPATH, '//div[contains(@class, "markdown prose")]//p')
-    print("\nRespuesta de ChatGPT:")
-    print(respuesta.text)
-except Exception as e:
-    print("\nNo se pudo encontrar la respuesta de ChatGPT. Error:", str(e))
 
-# Cerrar el navegador después de obtener la respuesta
-driver.quit()
+def resumir_con_spacy(texto, num_frases=3):
+    """Resume el contenido usando spaCy"""
+    doc = nlp(texto)
+    
+    # Dividir el texto en frases
+    frases = [sent.text for sent in doc.sents]
+
+    # Seleccionar las primeras `num_frases` frases para el resumen
+    resumen = " ".join(frases[:num_frases])
+    return resumen
+
+def mejorar_con_gemini(texto, pregunta):
+    """ Pide a Gemini que refine y haga más atractivo el resumen """
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
+    headers = {"Content-Type": "application/json"}
+    data = {
+        "contents": [{"parts": [{"text": f"{prompt_gemini} Pregunta del usuario: '{pregunta}', resumen de información extraída de diversas fuentes : '{texto}'"}]}],
+    }
+
+    respuesta = requests.post(url, json=data, headers=headers)
+
+    if respuesta.status_code == 200:
+        respuesta_json = respuesta.json()
+        try:
+            return respuesta_json["candidates"][0]["content"]["parts"][0]["text"]
+        except KeyError:
+            return "⚠️ Error: No se pudo extraer el texto de la respuesta de Gemini."
+    else:
+        return f"❌ Error en la solicitud a Gemini: {respuesta.status_code}"
+
+def links_de_resultados(resultados):
+    """Extrae los enlaces de los resultados de búsqueda"""
+    links = [r["link"] for r in resultados if "link" in r]
+    return links[0]
+
+def buscador_response(consulta):
+    respuesta = ""  # 👈 Aquí está el problema, nunca se asigna un valor real
+    # 1️⃣ Buscar información en SerpAPI
+    resultados = buscar_en_serpapi(consulta)
+    # 2️⃣ Extraer y concatenar snippets de los primeros 3 resultados
+    contenido = " ".join([r.get("snippet", "") for r in resultados[:3]])
+    print(f"ℹ️ Contenido de los resultados: {contenido}")
+    # 3️⃣ Resumir con spacy y luego mejorar con Gemini
+    if contenido:
+        links = links_de_resultados(resultados)
+        print(f"ℹ️ Links de los resultados: {links}")
+        resumen = contenido
+        print(f"ℹ️ Resumen con spaCy: {resumen}")
+        mensaje_final = mejorar_con_gemini(resumen + links, consulta)
+        respuesta = mensaje_final  # 👈 Aquí asignamos el mensaje final a `respuesta`
+    return respuesta  # 👈 Ahora la función devuelve el resultado correcto
+

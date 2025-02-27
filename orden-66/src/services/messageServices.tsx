@@ -7,7 +7,6 @@ const messageServices = async ({ text }: { text: string }) => {
             },
             body: JSON.stringify({ texto: text }) // Asegurar estructura correcta
         });
-
         if (!response.ok) {
             throw new Error(`Error en la respuesta: ${response.status} ${response.statusText}`);
         }

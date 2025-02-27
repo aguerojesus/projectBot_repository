@@ -35,7 +35,7 @@ export const ChatBotMessages: ChatBotMessagesTypes[] = [
     },
     {
         type: 'no',
-        message: "¡Entendido! Hasta luego."
+        message: "Abueno coma mierda. 😒"
     },
     {
         type: 'fallback',
