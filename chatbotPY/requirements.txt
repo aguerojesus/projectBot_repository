@@ -3,3 +3,4 @@ pip install flask flask-cors python-dotenv requests
 pip install pyspellchecker
 pip install requests spacy
 python -m spacy download es_core_news_sm
+pip install pytest

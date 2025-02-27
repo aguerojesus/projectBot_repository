@@ -3,8 +3,8 @@ import requests
 # Tu clave de API de Gemini
 GEMINI_API_KEY = "AIzaSyCUGwh8GMZ6qwhUNhegHoNNppuugQR48O4"
 
-def correxion_ortografica(frase):
-    """ Pide a Gemini que corrija la ortografia de la frase """
+def remover_datos_innecesarios(frase):
+    """ Pide a Gemini que remueva los datos innecesarios de la consulta """
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
     headers = {"Content-Type": "application/json"}
     
@@ -13,7 +13,7 @@ def correxion_ortografica(frase):
         "contents": [{
             "parts": [{
                 "text": f"""
-Dada la siguiente frase, devuelveme unicamente, la frase pero con las correxiones ortograficas necesarias, no agregues comillas ni ningun otro signo, ni ninguna otra frase. 
+Dada la siguiente frase, devuelveme unicamente, la frase pero elimina los verbos y otros datos innecesarios para la consulta, no agregues comillas ni ningun otro signo, ni ninguna otra frase. 
 
 Frase: {frase}
 

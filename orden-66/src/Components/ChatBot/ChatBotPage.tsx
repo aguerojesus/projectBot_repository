@@ -67,9 +67,9 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
                 setCount(0); // Reinicia el contador de mensajes despues de que el usuario responda, para no desactivar el chat por inactividad
                 inputRef.current.value = "";
 
-                if (historyChat[historyChat.length - 1].message === getMessageForType('fallback')) {
+                if (historyChat[historyChat.length - 1].message === getMessageForType('fallback') || historyChat[historyChat.length - 1].message === getMessageForType('help')) {
                     if (message.toLowerCase() === "si") {
-                        setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType("si"), formattedTime: formattedTime }]);
+                        setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType("sí"), formattedTime: formattedTime }]);
                         setNumTimesNotUnderstood(3); // Reinicia el contador de no entendidos
                         return;
                     } else if (message.toLowerCase() === "no") {
