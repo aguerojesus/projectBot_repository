@@ -36,7 +36,6 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
     useEffect(() => { // Desactiva el chat despues de 3 mensajes y envia un mensaje de despedida
 
-        
         if (count < 3) {
             const timeout = setTimeout(() => {
                 setCount(count + 1);
@@ -85,7 +84,10 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
                         // Si el bot no entiende la respuesta, restamos 1 al numTimesNotUnderstood 
                         if (response.respuesta === getMessageForType('default')) {
-                            setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
+                            if (numTimesNotUnderstood >= 0) {
+                                setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
+                            }
+                            console.log("No entendió:", numTimesNotUnderstood);
                             if (numTimesNotUnderstood === 0) {
                                 console.log("No entendió 3 veces");
                                 setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType('fallback'), formattedTime: formattedTime }]);
@@ -126,12 +128,14 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
     useEffect(() => { // Guarda los mensajes en el localStorage
         localStorage.setItem('historyChat', JSON.stringify(historyChat));
-        if (chatRef.current) {
+        if (chatRef.current) { // Baja el chat despues de enviar un mensaje
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
+
+        
     }, [historyChat]);
 
-    useEffect(() => {
+    useEffect(() => { // Elimina los mensajes predeterminados del bot y desactiva el talk cuando se oculta el chat
         if (isHiding) {
             deleteDefaultMessages();
             setTalk(false);
@@ -167,6 +171,13 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         }
     }, [talk, historyChat]);
 
+    useEffect(() => { // Bloquea el input y elimina el localStorage si el bot se despide
+        if (historyChat[historyChat.length - 1].message.includes("🌟")) {
+            localStorage.removeItem('historyChat');
+            setCount(3);
+        }
+    }, [historyChat]);
+
     return (
         <div className={`chatbot animate__animated ${isHiding ? "animate__slideOutDown" : "animate__slideInUp"}`}>
             <section className="msger">
@@ -196,7 +207,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
                 <form className="msger-inputarea">
                     <textarea className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress}
-                        disabled={count > 2}
+                        disabled={historyChat[historyChat.length - 1].sender !== botName || count === 3} // Desactiva el input si el último mensaje fue del bot o si se desactivó el chat
                         maxLength={100}
                         minLength={3}
                     />
