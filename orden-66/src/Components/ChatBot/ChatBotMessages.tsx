@@ -35,10 +35,14 @@ export const ChatBotMessages: ChatBotMessagesTypes[] = [
     },
     {
         type: 'no',
-        message: "¡Entendido! Hasta luego."
+        message: "¡Entendido! fue un placer ayudarte. Si tienes más preguntas, no dudes en escribirme. 🌟"
     },
     {
         type: 'fallback',
         message: "Parece que no estoy entendiendo. ¿Quieres que te ayude con otra cosa?"
+    },
+    {
+        type: 'adios',
+        message: "¡Hasta luego! 🌟"
     }
 ];

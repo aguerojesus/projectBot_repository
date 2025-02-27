@@ -1,11 +1,10 @@
 {
     "answers": {
         "Categoria_Beca": "Las becas se clasifican en: Becas socioeconómica, beca por actividades universitarias y becas externas",
-        "Categoria_Horas": "Algunas becas o programas requieren que los estudiantes cumplan con un número específico de horas en actividades extracurriculares o de servicio.",
-        "Concepto_Beca": "El concepto de beca se refiere a su propósito, que es apoyar a los estudiantes en su formación académica.",
+        "Concepto_Beca": "Una beca es una ayuda económica que se otorga a estudiantes para que puedan pagar sus estudios o investigaciones.",
         "Concepto_Matricula": "La matrícula es el proceso oficial donde inscribes los cursos para el semestre.",
         "Concepto_Prematricula": "La prematrícula es el proceso en el que seleccionas cursos antes de la matrícula oficial.",
-        "Concepto_ProfesorConsejero": "Un profesor consejero es el encargado de velar por la orientación académica de los estudiantes, ayudándoles en la selección de cursos y resolución de problemas académicos.",
+        "Concepto_ProfesorConsejero": "Un profesor consejero es el encargado de velar por la orientación académica de los estudiantes, ayudándoles en la selección de cursos y resolución de problemas académicos, te indica que cursos puedes llevar en la prematricula.",
         "Consejo_Matricula": "El consejo de matrícula se refiere a la orientación que recibe un estudiante para seleccionar sus cursos de manera adecuada.",
         "Consejo_Prematricula": "El consejo de prematrícula es la guía que recibe un estudiante para planificar sus cursos antes de la matrícula oficial.",
         "Fecha_Matricula": "Las fechas de prematrícula y matrícula son importantes para que los estudiantes se organicen y cumplan con los plazos establecidos.",
@@ -43,42 +42,49 @@
         "Concepto_NotaIngreso":"es el promedio de admisión, que se calcula a partir de la nota de presentación y la nota de la Prueba de Aptitud Académica (PAA)",
         "Proceso_NotaIngreso":"Se puede obtener en la dirección https://ori.ucr.ac.cr/admision",
        
+        "Proceso_PagoMatricula": "Para realizar el pago de la matricula o los créditos matriculados, tienes que consultar por tu número de cédula o de carnet para obtener el monto a pagar, puedes realizar el pago en la siguiente dirección: https://www.ucrenlinea.com/ ",
+        "Contacto_RecintoParaiso": "Teléfono: 2511-7550, Correo:secretaria.rp@ucr.ac.cr",
+        "Categoria_BecaSocioeconomica":"Beca 1:Otorga una exoneración del 45 por ciento sobre el costo de matrícula. Beca 2: Otorga una exoneración del 70 por ciento sobre el costo de matrícula. Beca 3: Una exoneración del 90 por ciento sobre el costo de matrícula y un subsidio del 70 del costo del almuerzo. Beca 4: Una exoneración del 100 por ciento sobre el costo de matrícula, almuerzo, etc. Beca 5: Una exoneración del 100 por ciento sobre el costo de matrícula. Un monto económico para gastos de carrera  y pobreza extrema, este último, cuando corresponda. ", 
+        "Concepto_ ChoqueCursos": "Un choque de cursos se da cuando el sistema de matricula que quiere matricular dos cursos que tengan lecciones que coincidan en un mismo horario el mismo dia. Ematricula no deja matricular dos cursos que tengan choque de horarios",
+        "Concepto_LevantamientoRequisitos":"Trámite que realiza la persona estudiante para poder llevar un curso que tiene algún requisito y que por fuerza mayor no lo ha cursado.",
+        "Proceso_LevantamientoRequisitos":"La persona estudiante llenará un formulario para dicho fin y lo presentará a la Coordinación de la Carrera para la aprobación o no de la solicitud y esta a su vez remitirá las solicitudes a la Dirección, luego la coordinación de carrera notifica la respuesta a la persona estudiante.",
+        "Concepto_MatriculaInclusion":"Es un proceso que permite a los estudiantes inscribirse en cursos que no pudieron matricularse en el proceso ordinario.",
+        "Proceso_MatriculaInclusion":"Consultar la Guía de Cursos y Horarios de la Sede de Occidente. Realizar la prematrícula ordinaria en el sitio web ematricula.Revisar las citas de matrícula en el sitio web ematricula.Realizar la matrícula ordinaria en el sitio web ematricula.",
+        "Concepto_MatriculaAprovechamiento":"Es el proceso para que el estudiantado solicite los cursos que no matriculó en los procesos anteriores, se liberan cupos por el retiro de matrícula y las carreras pueden abrir grupos nuevos.",
+        "Proceso_MatriculaAprovechamiento":"Consultar la Guía de Cursos y Horarios de la Sede Regional de Occidente.Realizar la prematrícula ordinaria en el sitio web de ematricula.Revisar las citas de matrícula en el sitio web ematricula.Realizar la matrícula ordinaria en el sitio web ematricula. Nota: Este proceso va después de la matricula por inclusión",
+        "Concepto_CursoOptativo":"Es un curso que el estudiante puede elegir para complementar su plan de estudios.",
+        "Proceso_CursoOptativo":"Estos se prematriculan y matriculan igual que los cursos de carrera en Ematricula, con la diferencia de que estos están bajo las siglas OPT.",
+        "Concepto_CursoComplementario":"Es una alternativa de formación académica que no pertenece al plan de estudios de la carrera del estudiante.",
+        "Proceso_CursoComplementario":"Estos se prematriculan y matriculan igual que los cursos de carrera en Ematricula.",
+        "Concepto_MediacionVirtual":"Mediación virtual es una plataforma en línea de la universidad que permite la interacción entre docentes y estudiantes, mediante esta plataforma podemos acceder al entorno de los cursos.",
+        "Concepto_Ematricula":"Ematrícula es el sistema en línea de la Universidad de Costa Rica (UCR) para realizar el proceso de matrícula.",
+    
+    
+        "Fecha_DepositoBecas":"Las fechas del deposito de becas se pueden ver en la siguiente dirección:https://becas.ucr.ac.cr/monto_gastos_carrera_fechas/#:~:text=Primera%20entrega%3A%2008%20de%20marzo,entrega%3A%2003%20de%20junio%202025. ",
+        "Servicio_AtencionPsicologica": "La UCR ofrece atención psicológica gratuita a sus estudiantes a través de la Oficina de Bienestar y Salud. Este servicio brinda apoyo emocional, terapias individuales y talleres sobre salud mental. Puedes solicitar una cita enviando un correo a : PSICOLOGIA.RP@ucr.ac.cr",
         "Servicio_ConsejeriaEstudiantil": "Es un servicio de orientación que ayuda a los estudiantes con problemas académicos, vocacionales y personales. Se ofrece en las distintas facultades y en la Oficina de Orientación.",
-        "Servicio_Biblioteca": "La UCR cuenta con múltiples bibliotecas en sus diferentes recintos y sedes proporcionando acceso a libros, revistas, y otros materiales de consulta, tanto físicos como digitales. Además, puedes acceder a las bibliotecas de forma virtual.",
+        "Servicio_Biblioteca": "La biblioteca del recinto cumple multiples funciones proporcionando acceso a libros, revistas, y otros materiales de consulta, tanto físicos como digitales. Además, puedes acceder a las bibliotecas de forma virtual.",
         "Servicio_Referencista": "Es una ayuda que la U le brinda a los estudiantes en temas relacionados a las citaciones en texto en formato APA 7, citas bibliográficas y temas relacionados.",
         "Servicio_AsuntosEstudiantiles": "La Oficina de Registro de asuntos estudiantiles del Recinto de Paraíso se encarga de la administración de procesos de admisión, permanencia y graduación, de los estudiantes.",
-        "Servicio_EducacionContinua": "Cursos, talleres y capacitaciones para la comunidad universitaria y público en general.",
-        "Servicio_Recreación": "Espacios y actividades deportivas o culturales para los estudiantes.",
+        "Servicio_EducacionContinua": "Son cursos, talleres y capacitaciones para la comunidad universitaria y público en general ofrecido por el recinto.",
+        "Servicio_Recreacion": "Espacios y actividades deportivas o culturales para los estudiantes.",
         "Servicio_RecepcionBecas": "Gestión y recepción de solicitudes de becas estudiantiles.",
-        "Servicio_TCU": "Programas de vinculación con la comunidad en diversas áreas.",
+        "Servicio_TCU": "Facilita a los estudiantes los programas de vinculación con la comunidad en diversas áreas cercanas para su desarrollo con ayuda de estudiantes del recinto de Paraíso.",
         "Servicio_Medicina": "Atención médica básica para estudiantes y funcionarios.",
     
-        "Concepto_BecaOdontologia": "El beneficio consiste en cubrir los costos de tratamientos odontológicos en Atención Primaria Básica, en cualquier ciclo lectivo siempre y cuando tenga beca socioeconómica vigente. ",
-        "Solicitd_BecaOdontologia": "Se puede solicitar el servicio de odontologia en la siguiente dirección: https://odontoweb.ucr.ac.cr/odontoweb/",
-    
-        "Concepto_BecaReubicacion": "Este beneficio complementario consiste en un subsidio económico que se asigna a estudiantes que provienen de un grupo familiar que reside en zonas alejadas al centro de estudio, con el propósito de apoyar el pago del alquiler durante el tiempo lectivo.",
-        "Solicitud_BecaReubicacion": "Se puede solicitar el beneficio de reubicación en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
-    
-        "Concepto_BecaOptometria":"Los servicios de Optometría y Oftalmología consisten en un descuento total de los costos de diagnóstico o compra de anteojos del paquete básico contratado por la Universidad de Costa Rica.",
-        "Solicitud_BecaOptometria":"Se puede realizar la solicitud del servicio de optometría en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/ShowSolicitudAtencionMedicaAction.do",
-    
-        "Concepto_BecaTransporte":"El beneficio consiste en un subsidio económico que se le asigna a estudiantes de zonas cercanas e intermedias al centro de estudio para cubrir parcialmente el costo del traslado hacia la Universidad. Lo pueden solicitar los estudiantes con categoría de beca socioeconómica 4 y 5.",
-        "Solicitud_BecaTransporte":"Se puede solicitar el beneficio de transporte en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
-    
-        "Horarios": "Los horarios de clases y atención administrativa varían cada semestre. Se pueden consultar en la página oficial del Recinto Paraíso o en el sistema de matrícula de la UCR.",
+        "Concepto_ServicioOdontologia": "El beneficio de odontologia consiste en cubrir los costos de tratamientos odontológicos en Atención Primaria Básica, en cualquier ciclo lectivo siempre y cuando tenga beca socioeconómica vigente. ",
+        "Proceso_ServicioOdontologia": "Se puede solicitar el servicio de odontologia en la siguiente dirección: https://odontoweb.ucr.ac.cr/odontoweb/",
+        "Concepto_ServicioReubicacion": "Este beneficio de reubicación complementario consiste en un subsidio económico que se asigna a estudiantes que provienen de un grupo familiar que reside en zonas alejadas al centro de estudio, con el propósito de apoyar el pago del alquiler durante el tiempo lectivo.",
+        "Proceso_ServicioReubicacion": "Se puede solicitar el beneficio de reubicación en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
+        "Concepto_ServicioOptometria":"Los servicios de Optometría y Oftalmología consisten en un descuento total de los costos de diagnóstico o compra de anteojos del paquete básico contratado por la Universidad de Costa Rica.",
+        "Proceso_ServicioOptometria":"Se puede realizar la solicitud del servicio de optometría en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/ShowSolicitudAtencionMedicaAction.do",
+        "Concepto_ServicioTransporte":"El beneficio de transporte consiste en un subsidio económico que se le asigna a estudiantes de zonas cercanas e intermedias al centro de estudio para cubrir parcialmente el costo del traslado hacia la Universidad. Lo pueden solicitar los estudiantes con categoría de beca socioeconómica 4 y 5.",
+        "Proceso_ServicioTransporte":"Se puede solicitar el beneficio de transporte en la siguiente dirección: https://becassolicitudes.ucr.ac.cr/becas/",
+        "Concepto_JustificacionCargaAcademica":"Es un documento que se presenta para explicar por qué no se pudo completar la carga académica",
+        "Proceso_JustificacionCargaAcademica":"La lista de pasos se puede encontrar en la siguiente dirección: https://so.ucr.ac.cr/es/tramite/justificacion-de-carga-academica ",
+        "Despedida":"Adiós estimado usuario, espero haberte ayudado.🌟",
+        "por_defecto": "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?"
         
-        "Carreras": "El Recinto Paraíso ofrece diversas carreras en áreas como educación, administración y tecnología. La lista actualizada se encuentra en el sitio web de la UCR.",
-        "Calendario": "El calendario académico incluye fechas importantes como matrícula, inicio de clases y exámenes. Se publica cada semestre en el sitio oficial de la UCR.",
-        "por_defecto": "Lo siento, no entiendo tu pregunta. ¿Puedes ser más específico?",
-
-
-
-
-        "Proceso_PagoMatricula": "Para realizar el pago de la matricula o los créditos matriculados, tienes que consultar por tu número de cédula o de carnet para obtener el monto a pagar, puedes realizar el pago en la siguiente dirección: https://www.ucrenlinea.com/ ",
-        
-        "Contacto_RecintoParaiso": "Teléfono: 2511-7550, Correo:secretaria.rp@ucr.ac.cr",
-        
-        "Servicio_AtencionPsicologica": "La UCR ofrece atención psicológica gratuita a sus estudiantes a través de la Oficina de Bienestar y Salud. Este servicio brinda apoyo emocional, terapias individuales y talleres sobre salud mental. Puedes solicitar una cita enviando un correo a : PSICOLOGIA.RP@ucr.ac.cr"
     }
 
 }

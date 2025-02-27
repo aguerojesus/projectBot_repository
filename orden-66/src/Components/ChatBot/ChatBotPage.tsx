@@ -11,11 +11,11 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
     const [botName] = useState<string>("Asistente R2-D2");
     const [hear, setHear] = useState<boolean>(false); // Activa el micrófono
     /* si van 3 veces que no entiende, se le pregunte al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión */
-    const [numTimesNotUnderstood, setNumTimesNotUnderstood] = useState<number>(3);
+    const [numTimesNotUnderstood, setNumTimesNotUnderstood] = useState<number>(2);
     const [formattedTime] = useState<string>(`${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`); //
     const [count, setCount] = useState<number>(0); // Contador para desactivar el chat despues de 3 mensajes
     const [talk, setTalk] = useState<boolean>(false); // El chat hablara siempre que haya un mensaje nuevo
-    const [messageChat] = useState<ChatBotMessagesTypes[]>(ChatBotMessages);
+    const [messageChat] = useState<ChatBotMessagesTypes[]>(ChatBotMessages); // Mensajes predeterminados del bot
 
 
     const inputRef = useRef<HTMLTextAreaElement>(null); // Obtiene el valor del input
@@ -35,6 +35,7 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
     }
 
     useEffect(() => { // Desactiva el chat despues de 3 mensajes y envia un mensaje de despedida
+
         if (count < 3) {
             const timeout = setTimeout(() => {
                 setCount(count + 1);
@@ -56,44 +57,50 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         }
     }, [historyChat]);
 
-    useEffect(() => { // si el chatbot contesta 3 veces que no entiende, se le pregunta al usuario si lo puedo ayudar con otra cosa, y si dice que no, se cierre sesión
-        var lastMessage = historyChat[historyChat.length - 1];
-        console.log("lastMessage", lastMessage);
-
-        if (lastMessage.sender === botName && lastMessage.message === getMessageForType('default')) {
-            if (numTimesNotUnderstood === 0) {
-                setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType('fallback'), formattedTime: formattedTime }]);
-                console.log("Se envio un mensaje de fallback");
-            }
-            
-            if (numTimesNotUnderstood >= 1) {
-                console.log("No entendió el mensaje");
-            }
-            setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
-        }
-
-        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('si')) {
-            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[4].message, formattedTime: formattedTime }]);
-            console.log("El usuario dijo que si");
-        }
-        if (lastMessage.sender === 'User' && lastMessage.message === getMessageForType('no')) {
-            setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: messageChat[5].message, formattedTime: formattedTime }]);
-            console.log("El usuario dijo que no");
-        }
-    }, [historyChat]);
-
     const handleSendMessage = async () => {
         if (inputRef.current) {
             const message = inputRef.current.value.trim();
+
             if (message !== "") {
                 setHistoryChat(prevHistory => [...prevHistory, { sender: 'User', message: message, formattedTime: formattedTime }]);
-                setCount(0);
+                setCount(0); // Reinicia el contador de mensajes despues de que el usuario responda, para no desactivar el chat por inactividad
                 inputRef.current.value = "";
+
+                if (historyChat[historyChat.length - 1].message === getMessageForType('fallback')) {
+                    if (message.toLowerCase() === "si") {
+                        setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType("si"), formattedTime: formattedTime }]);
+                        setNumTimesNotUnderstood(3); // Reinicia el contador de no entendidos
+                        return;
+                    } else if (message.toLowerCase() === "no") {
+                        setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType("no"), formattedTime: formattedTime }]);
+                        setCount(3); // Desactiva el chat
+                        return;
+                    }
+                }
 
                 try {
                     const response = await messageServices({ text: message });
                     if (response && response.respuesta) {
+
+                        // Si el bot no entiende la respuesta, restamos 1 al numTimesNotUnderstood 
+                        if (response.respuesta === getMessageForType('default')) {
+                            if (numTimesNotUnderstood >= 0) {
+                                setNumTimesNotUnderstood(numTimesNotUnderstood - 1);
+                            }
+                            console.log("No entendió:", numTimesNotUnderstood);
+                            if (numTimesNotUnderstood === 0) {
+                                console.log("No entendió 3 veces");
+                                setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: getMessageForType('fallback'), formattedTime: formattedTime }]);
+                                return;
+                            }
+
+                        } else {
+                            setNumTimesNotUnderstood(3);
+                        }
+
+                        // Respuesta del bot
                         setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: response.respuesta, formattedTime: formattedTime }]);
+
                     } else {
                         setHistoryChat(prevHistory => [...prevHistory, { sender: botName, message: "Error al obtener respuesta", formattedTime: formattedTime }]);
                     }
@@ -121,12 +128,14 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
     useEffect(() => { // Guarda los mensajes en el localStorage
         localStorage.setItem('historyChat', JSON.stringify(historyChat));
-        if (chatRef.current) {
+        if (chatRef.current) { // Baja el chat despues de enviar un mensaje
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
         }
+
+        
     }, [historyChat]);
 
-    useEffect(() => {
+    useEffect(() => { // Elimina los mensajes predeterminados del bot y desactiva el talk cuando se oculta el chat
         if (isHiding) {
             deleteDefaultMessages();
             setTalk(false);
@@ -162,6 +171,13 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
         }
     }, [talk, historyChat]);
 
+    useEffect(() => { // Bloquea el input y elimina el localStorage si el bot se despide
+        if (historyChat[historyChat.length - 1].message.includes("🌟")) {
+            localStorage.removeItem('historyChat');
+            setCount(3);
+        }
+    }, [historyChat]);
+
     return (
         <div className={`chatbot animate__animated ${isHiding ? "animate__slideOutDown" : "animate__slideInUp"}`}>
             <section className="msger">
@@ -191,8 +207,9 @@ const ChatBotComponent = ({ isHiding }: { isHiding: boolean }) => {
 
                 <form className="msger-inputarea">
                     <textarea className="msger-input" ref={inputRef} placeholder="Enter your message..." onKeyPress={handleKeyPress}
-                        disabled={count > 2}
+                        disabled={historyChat[historyChat.length - 1].sender !== botName || count === 3} // Desactiva el input si el último mensaje fue del bot o si se desactivó el chat
                         maxLength={100}
+                        minLength={3}
                     />
                     <div className="microphone" onClick={() => setHear(!hear)}>
                         {hear ?
