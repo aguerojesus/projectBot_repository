@@ -1,6 +1,6 @@
 export const messageServices = async ({ text }: { text: string }) => {
     try {
-        const response = await fetch("http://127.0.0.1:3000/mensaje", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/mensaje`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,7 +34,6 @@ export const nplServices = async ({ text }: { text: string }) => {
 
         const data = await response.json();
         
-        // Aquí puedes verificar si hay un campo 'error' o algo similar
         if (data.error) {
             throw new Error(data.error);
         }

@@ -105,8 +105,7 @@
 
 .msger-chat {
   background-color: #fcfcfe;
-  background-image: url("https://images3.alphacoders.com/609/thumb-1920-609744.png");
-  background-size: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("https://m.media-amazon.com/images/I/81nYcvCmhwL.jpg");  background-size: 100%;
   background-position: center;
 }
 

@@ -1,10 +1,8 @@
 import os
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
-
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+# Define directamente el valor del ACCESS_TOKEN
+ACCESS_TOKEN = "K7ZJDLE6NAMXA33OKYDYHOIZZF47C6RL"
 
 # Función para enviar un mensaje a Wit.ai y obtener la intención
 def obtener_intencion(mensaje):
@@ -26,4 +24,3 @@ def obtener_intencion(mensaje):
     except Exception as e:
         print("Error al conectar con Wit.ai:", e)
         return "por_defecto"
-

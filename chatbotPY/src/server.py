@@ -2,12 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from browser import buscador_response
 from correct_spelling import correctSpelling
-from inferencia_bool import es_negativa
 from wit_ai_integration import obtener_intencion
 from responses_chatbot import obtener_respuesta
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})  # Habilitar CORS
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Ruta principal
 @app.route('/')
@@ -31,6 +30,7 @@ def procesar_mensaje():
                 return jsonify({"respuesta": respuesta}) # Si no se detecta una intención, buscar en la web con SerpAPI y Gemini
 
         mensaje_respuesta = obtener_respuesta(intent)  # Obtener respuesta según la intención
+        print("Intención:", mensaje_respuesta)
         return jsonify({"respuesta": mensaje_respuesta})
     except Exception as e:
         print("Error:", e)
@@ -61,4 +61,5 @@ def analizar():
     return resultado
 
 if __name__ == "__main__":
-    app.run(port=3000, debug=True)
+    app.run(host='0.0.0.0', port=3000, debug=True)
+

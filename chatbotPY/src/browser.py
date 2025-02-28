@@ -5,17 +5,16 @@ import spacy
 nlp = spacy.load("es_core_news_sm")
 
 # Clave API de SerpAPI (reemplázala con la tuya)
-SERPAPI_KEY = "b67b67e718b9efe57283b35a10f610be248315b6e1a9d83c1c1250d010d84cb7"
+SERPAPI_KEY = "369448b90eda3379142a85d54630afe85d02e8d6a95df1319f9c8e698e69dc1f"
 
 GEMINI_API_KEY = "AIzaSyCUGwh8GMZ6qwhUNhegHoNNppuugQR48O4"
 
 prompt_gemini = """
 Responde como si fueras la Universidad de Costa Rica, sede Paraíso. Mantén un tono formal e institucional, brindando información clara y precisa con un máximo de 300 caracteres. Si el usuario saluda (por ejemplo, "buenos días", "saludos cordiales", etc.), responde de manera cordial y formal, como corresponde en un contexto institucional. Si el resumen de información es relevante para la respuesta, úsalo. Si no lo es, responde solo con información pertinente a la UCR de Paraíso.
 
-En los demás casos, si no tienes suficiente información para dar una respuesta adecuada a la pregunta del usuario, no respondas.
-Si la pregunta del usuario no se entiende, no respondas.
+importante, esta regla es las mas importante que debes de seguir: si no tienes suficiente información para dar una respuesta o la preguna del usuario no es clara, no respondas nada.
 
-Cuando el usuario se despide o dice algo negativo, porfavor agrega este emoticon "🌟" en tu despedida
+Cuando el usuario se despide o dice algo negativo, porfavor agrega este emoticon "🌟" mas una despedida
 
 En la respuesta agrega el link de la fuente de información de donde se extrajo el resumen. Si no se extrajo información de una fuente, no incluyas link.
 Utiliza <a link>Nombre apropiado</a>
@@ -34,7 +33,7 @@ Importante, Estructura la respuesta con html para darle formato. Ejemplo:
 # vive es el sitio con menor importancia
 def buscar_en_serpapi(consulta, num_resultados):
     """Busca información en Google usando SerpAPI con filtrado de sitios específicos"""
-    query_especifica = f"{consulta} site:paraiso.ucr.ac.cr OR site:ematricula.ucr.ac.cr"
+    query_especifica = f"{consulta} site:paraiso.ucr.ac.cr OR site:ematricula.ucr.ac.cr OR site:vive.ucr.ac.cr"
     url = "https://serpapi.com/search"
     params = {"q": query_especifica, "api_key": SERPAPI_KEY}
     
